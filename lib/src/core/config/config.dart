@@ -1,0 +1,63 @@
+const configData = {
+  'schoolInfo': {
+    'name': 'Sunflower Preparatory Montessori and High School',
+    'motto': 'Growing and Learning',
+    'address': '29 airport road 46 Central Road Benin City',
+    'logoPath': 'assets/sunflower_icon.png',
+    'branches': ['SF ONE', 'SF TWO', 'SF THREE'],
+    'contactInfo': {'email': '', 'phone1': '', 'phone2': ''},
+    'website': '',
+    'establishedYear': '',
+    'showFinalPosition': false,
+    'gradingSystem': {
+      'ranges': [
+        {
+          'grade': 'A',
+          'min': 70,
+          'max': 100,
+          'color': '#4CAF50',
+          'remark': 'Excellent',
+          'teacherRemark': 'Outstanding work! Keep it up.',
+          'principalRemark':
+              'This is an outstanding performance. Keep soaring higher.',
+        },
+        {
+          'grade': 'B',
+          'min': 60,
+          'max': 69,
+          'color': '#8BC34A',
+          'remark': 'Very good',
+          'teacherRemark': 'Great effort! You can reach higher.',
+          'principalRemark': 'An excellent performance. Keep it up',
+        },
+        {
+          'grade': 'C',
+          'min': 50,
+          'max': 59,
+          'color': '#FFC107',
+          'remark': 'Good',
+          'teacherRemark': 'Good work, focus on weak areas.',
+          'principalRemark': 'A very good result. Keep it up',
+        },
+        {
+          'grade': 'D',
+          'min': 40,
+          'max': 49,
+          'color': '#FF9800',
+          'remark': 'Fair',
+          'teacherRemark': 'Needs more dedication.',
+          'principalRemark': 'Good result. You can put in more effort.',
+        },
+        {
+          'grade': 'E',
+          'min': 0,
+          'max': 39,
+          'color': '#FF5722',
+          'remark': 'Poor',
+          'teacherRemark': 'Work harder to improve.',
+          'principalRemark': 'An average performance. Put in more effort.',
+        },
+      ],
+    },
+  },
+};
