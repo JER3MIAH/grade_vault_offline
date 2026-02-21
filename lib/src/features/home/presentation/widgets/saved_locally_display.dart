@@ -9,7 +9,7 @@ class SavedLocallyDisplay extends StatelessWidget {
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      decoration: const BoxDecoration(color: AppColors.green500),
+      decoration: const BoxDecoration(color: KitColors.green500),
       child: const Wrap(
         spacing: 8,
         children: [

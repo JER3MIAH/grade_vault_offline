@@ -15,7 +15,7 @@ class DeleteItemDialog extends StatelessWidget {
     return DialogActionColumn(
       title: 'Delete Class',
       primaryButtonTitle: 'Delete',
-      primaryButtonColor: AppColors.red500,
+      primaryButtonColor: KitColors.red500,
       onTap: onDelete,
       children: [
         StyledText(

@@ -33,14 +33,14 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
               fontWeight: subtitle.isNotNullOrEmpty
                   ? FontWeight.w500
                   : FontWeight.w700,
-              color: AppColors.white,
+              color: KitColors.white,
             ),
             if (subtitle.isNotNullOrEmpty)
               StyledText(
                 subtitle!,
                 fontSize: 14,
                 fontWeight: FontWeight.w400,
-                color: AppColors.white,
+                color: KitColors.white,
               ),
           ],
         ),

@@ -87,7 +87,7 @@ class AddStudentDialog extends HookConsumerWidget {
             validateOnBuild: false,
           ),
           const YGap(12),
-          AppSelector(
+          KitSelector(
             hintText: 'Gender',
             value: selectedValue.value,
             items: ['Male', 'Female'],

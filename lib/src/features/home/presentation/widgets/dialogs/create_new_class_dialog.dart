@@ -75,7 +75,7 @@ class CreateNewClassDialog extends HookConsumerWidget {
             validator: Validators.validateRequiredText,
           ),
           const YGap(12),
-          AppSelector(
+          KitSelector(
             hintText: 'Academic Session',
             value: selectedSession.value,
             items: SESSION_LIST,
@@ -86,7 +86,7 @@ class CreateNewClassDialog extends HookConsumerWidget {
           ),
           const YGap(12),
           if (BRANCH_LIST.isNotEmpty)
-            AppSelector(
+            KitSelector(
               hintText: 'Branch',
               value: selectedBranch.value,
               items: BRANCH_LIST,

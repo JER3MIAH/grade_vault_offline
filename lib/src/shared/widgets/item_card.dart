@@ -11,7 +11,7 @@ class ItemCard extends StatelessWidget {
     required this.title,
     required this.icon,
     required this.itemCount,
-    this.color = AppColors.blue500,
+    this.color = KitColors.blue500,
   });
 
   @override

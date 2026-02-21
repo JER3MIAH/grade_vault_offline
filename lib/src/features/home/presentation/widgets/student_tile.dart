@@ -17,7 +17,7 @@ class StudentTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      tileColor: AppColors.neutral100,
+      tileColor: KitColors.neutral100,
       onTap: onTap,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       title: StyledText(student.name, fontSize: 16),
@@ -29,7 +29,7 @@ class StudentTile extends StatelessWidget {
         icon: CupertinoIcons.trash,
         iconSize: 18,
         onTap: onDelete,
-        iconColor: AppColors.red500,
+        iconColor: KitColors.red500,
       ),
     ).decorated();
   }

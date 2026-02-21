@@ -1,0 +1,300 @@
+import 'package:flutter/foundation.dart'; // For kDebugMode
+import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:grade_vault_offline/src/core/navigation/nav.dart';
+import 'package:grade_vault_offline/src/features/onboarding/license_management_screen.dart';
+import 'package:toolkit_core/toolkit_core.dart' show ContextExtensions;
+
+class SettingsScreen extends HookWidget {
+  const SettingsScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    // Simulated state for school details
+    final schoolDetails = useState<Map<String, dynamic>?>(null);
+    final isLicensed = useState(true);
+
+    return Scaffold(
+      backgroundColor: const Color(0xFFF9FAFB), // gray-50
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Color(0xFF111827)),
+          onPressed: context.pop,
+        ),
+        title: const Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Settings',
+              style: TextStyle(
+                color: Color(0xFF111827),
+                fontWeight: FontWeight.bold,
+                fontSize: 20,
+              ),
+            ),
+            Text(
+              'Manage your app preferences',
+              style: TextStyle(
+                color: Color(0xFF4B5563),
+                fontSize: 12,
+                fontWeight: FontWeight.normal,
+              ),
+            ),
+          ],
+        ),
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(1),
+          child: Container(color: Colors.grey.shade200, height: 1),
+        ),
+      ),
+      body: SingleChildScrollView(
+        child: Center(
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 800),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 16.0,
+                vertical: 24.0,
+              ),
+              child: Column(
+                children: [
+                  // School Details Card
+                  if (isLicensed.value) _buildSchoolCard(schoolDetails.value),
+
+                  const SizedBox(height: 24),
+
+                  // Settings Menu List
+                  _buildSettingsItem(
+                    icon: Icons.key_rounded,
+                    title: 'License Management',
+                    subtitle: isLicensed.value
+                        ? 'Update or renew your school license'
+                        : 'Activate your school license for full features',
+                    iconColor: Colors.blue,
+                    onTap: () => context.pushNamed(
+                      AppRoutes.licenseManagement,
+                      arguments: LicenseManagementScreenArgs(
+                        showSkip: false,
+                        onComplete: (_) {},
+                      ),
+                    ),
+                  ),
+
+                  // Development Only Item
+                  if (kDebugMode)
+                    _buildSettingsItem(
+                      icon: Icons.description_outlined,
+                      title: 'Generate Test License',
+                      subtitle:
+                          'Development tool to create sample license files',
+                      iconColor: Colors.orange,
+                      onTap: () {},
+                    ),
+
+                  _buildSettingsItem(
+                    icon: Icons.shield_outlined,
+                    title: 'Privacy Policy',
+                    subtitle: 'Learn how we protect your data',
+                    iconColor: Colors.purple,
+                    onTap: () {},
+                  ),
+
+                  _buildSettingsItem(
+                    icon: Icons.article_outlined,
+                    title: 'Terms of Service',
+                    subtitle: 'Read our terms and conditions',
+                    iconColor: Colors.green,
+                    onTap: () {},
+                  ),
+
+                  _buildSettingsItem(
+                    icon: Icons.info_outline,
+                    title: 'About',
+                    subtitle: 'App version and information',
+                    iconColor: Colors.grey,
+                    onTap: () {},
+                  ),
+
+                  _buildSettingsItem(
+                    icon: Icons.mail_outline,
+                    title: 'Support',
+                    subtitle: 'Get help and contact support',
+                    iconColor: Colors.deepOrange,
+                    onTap: () {},
+                  ),
+
+                  const SizedBox(height: 40),
+
+                  // App Info Footer
+                  const Text(
+                    'Result Generator App\nVersion 1.0.0\nMade for Nigerian Schools 🇳🇬',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Color(0xFF6B7280),
+                      fontSize: 13,
+                      height: 1.5,
+                    ),
+                  ),
+                  const SizedBox(height: 40),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildSchoolCard(Map<String, dynamic>? details) {
+    return Container(
+      padding: const EdgeInsets.all(24),
+      decoration: BoxDecoration(
+        gradient: const LinearGradient(
+          colors: [Color(0xFFEFF6FF), Color(0xFFF5F3FF)],
+        ),
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: const Color(0xFFBFDBFE)),
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              color: const Color(0xFF2563EB),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: const Icon(
+              Icons.business_rounded,
+              color: Colors.white,
+              size: 28,
+            ),
+          ),
+          const SizedBox(width: 16),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  details?['schoolName'] ?? 'Example International School',
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,
+                    color: Color(0xFF111827),
+                  ),
+                ),
+                const SizedBox(height: 4),
+                const Text(
+                  '123 Education Lane, Lagos State\nsupport@example.edu\n+234 800 000 0000',
+                  style: TextStyle(
+                    color: Color(0xFF4B5563),
+                    fontSize: 14,
+                    height: 1.4,
+                  ),
+                ),
+                const SizedBox(height: 12),
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 10,
+                    vertical: 4,
+                  ),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFDCFCE7),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Container(
+                        width: 8,
+                        height: 8,
+                        decoration: const BoxDecoration(
+                          color: Color(0xFF22C55E),
+                          shape: BoxShape.circle,
+                        ),
+                      ),
+                      const SizedBox(width: 8),
+                      const Text(
+                        'License Active - Professional',
+                        style: TextStyle(
+                          color: Color(0xFF15803D),
+                          fontSize: 12,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSettingsItem({
+    required IconData icon,
+    required String title,
+    required String subtitle,
+    required Color iconColor,
+    required VoidCallback onTap,
+  }) {
+    return Container(
+      margin: const EdgeInsets.only(bottom: 12),
+      child: Material(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(12),
+        child: InkWell(
+          onTap: onTap,
+          borderRadius: BorderRadius.circular(12),
+          child: Container(
+            padding: const EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              border: Border.all(color: const Color(0xFFF3F4F6)),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Row(
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    color: iconColor.withValues(alpha: 0.1),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Icon(icon, color: iconColor, size: 24),
+                ),
+                const SizedBox(width: 16),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        title,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 16,
+                          color: Color(0xFF111827),
+                        ),
+                      ),
+                      Text(
+                        subtitle,
+                        style: const TextStyle(
+                          color: Color(0xFF6B7280),
+                          fontSize: 13,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const Icon(Icons.chevron_right, color: Color(0xFFD1D5DB)),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}

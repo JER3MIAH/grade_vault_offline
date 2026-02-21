@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:grade_vault_offline/src/core/navigation/app_routes.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:grade_vault_offline/src/features/home/presentation/providers/app_state_provider.dart';
 import 'package:grade_vault_offline/src/shared/shared.dart';
@@ -76,6 +77,16 @@ class BackupDataDialog extends ConsumerWidget {
               }
             },
           ),
+          Divider(height: 8, color: Colors.grey.shade300),
+          _CustomTile(
+            title: 'Settings',
+            subtitle: 'Manage app settings',
+            icon: Icons.settings_outlined,
+            onTap: () {
+              context.pop();
+              context.pushNamed(AppRoutes.settings);
+            },
+          ),
         ],
       ),
     );
@@ -99,8 +110,8 @@ class _CustomTile extends StatelessWidget {
     return ListTile(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       title: StyledText(title, fontSize: 16, fontWeight: FontWeight.w500),
-      subtitle: StyledText(subtitle, fontSize: 14, color: AppColors.neutral500),
-      leading: Icon(icon, color: AppColors.neutral500),
+      subtitle: StyledText(subtitle, fontSize: 14, color: KitColors.neutral500),
+      leading: Icon(icon, color: KitColors.neutral500),
       onTap: onTap,
     );
   }

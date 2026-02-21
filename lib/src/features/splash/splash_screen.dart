@@ -9,12 +9,12 @@ class SplashScreen extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, ref) {
-    final nav = AppNavigator(context);
+    final nav = KitNavigator(context);
 
     useEffect(() {
       Future.delayed(
         const Duration(milliseconds: 3000),
-        () => nav.replaceAllNamed(AppRoutes.home),
+        () => nav.replaceAllNamed(AppRoutes.onboarding),
       );
       return null;
     }, const []);
@@ -23,11 +23,11 @@ class SplashScreen extends HookConsumerWidget {
       body: Container(
         height: double.infinity,
         width: double.infinity,
-        decoration: const BoxDecoration(color: AppColors.blue),
+        decoration: const BoxDecoration(color: KitColors.blue),
         child: Center(
           child: Padding(
             padding: const EdgeInsets.all(150),
-            child: Image.asset('assets/app_icon.png'),
+            child: Image.asset('assets/app_icon_no_bg.png'),
           ),
         ),
       ),

@@ -24,7 +24,7 @@ class CustomTab extends StatelessWidget {
               : null,
           border: Border(
             bottom: BorderSide(
-              color: isSelected ? context.colors.primary : AppColors.neutral300,
+              color: isSelected ? context.colors.primary : KitColors.neutral300,
               width: isSelected ? 2 : .5,
             ),
           ),

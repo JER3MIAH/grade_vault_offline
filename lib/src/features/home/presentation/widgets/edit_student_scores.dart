@@ -76,7 +76,7 @@ class EditScoresDialog extends HookConsumerWidget {
                           const StyledText('Include CA', fontSize: 16),
                           Switch.adaptive(
                             value: includeCa.value,
-                            activeThumbColor: AppColors.white,
+                            activeThumbColor: KitColors.white,
                             activeTrackColor: context.colors.primary,
                             onChanged: (v) {
                               includeCa.value = v;

@@ -11,14 +11,14 @@ class SubjectTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      tileColor: AppColors.neutral100,
+      tileColor: KitColors.neutral100,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       title: StyledText(subjectName, fontSize: 16),
       trailing: AppIconButton(
         icon: CupertinoIcons.trash,
         iconSize: 18,
         onTap: onDelete,
-        iconColor: AppColors.red500,
+        iconColor: KitColors.red500,
       ),
     ).decorated();
   }

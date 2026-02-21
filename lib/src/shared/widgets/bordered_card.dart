@@ -20,9 +20,9 @@ class BorderedCard extends StatelessWidget {
       child: Container(
         padding: padding,
         decoration: BoxDecoration(
-          color: AppColors.white,
+          color: KitColors.white,
           border: Border.all(
-            color: borderColor ?? AppColors.neutral200,
+            color: borderColor ?? KitColors.neutral200,
             width: 1,
           ),
           borderRadius: BorderRadius.circular(8),

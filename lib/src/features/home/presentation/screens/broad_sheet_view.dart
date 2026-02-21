@@ -97,7 +97,7 @@ class _BroadSheetCard extends HookWidget {
       margin: const EdgeInsets.symmetric(vertical: 16),
       height: .5,
       width: double.infinity,
-      color: AppColors.neutral200,
+      color: KitColors.neutral200,
     );
   }
 
@@ -279,7 +279,7 @@ class _BroadSheetCard extends HookWidget {
           padding: const EdgeInsets.all(8),
           margin: const EdgeInsets.only(bottom: 20),
           decoration: BoxDecoration(
-            border: Border.all(color: AppColors.neutral200),
+            border: Border.all(color: KitColors.neutral200),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -354,7 +354,7 @@ class _BroadSheetCard extends HookWidget {
               // Student info
               Container(
                 decoration: BoxDecoration(
-                  border: Border.all(width: .5, color: AppColors.neutral200),
+                  border: Border.all(width: .5, color: KitColors.neutral200),
                 ),
                 padding: const EdgeInsets.all(10),
                 child: Column(
@@ -471,7 +471,7 @@ class _BroadSheetCard extends HookWidget {
 
               // Subject table
               Table(
-                border: TableBorder.all(width: .5, color: AppColors.neutral200),
+                border: TableBorder.all(width: .5, color: KitColors.neutral200),
                 columnWidths: const {
                   0: FlexColumnWidth(3),
                   1: FlexColumnWidth(1),

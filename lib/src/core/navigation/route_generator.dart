@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:grade_vault_offline/src/core/navigation/nav.dart';
 import 'package:grade_vault_offline/src/features/home/presentation/screens/screens.dart';
+import 'package:grade_vault_offline/src/features/onboarding/license_management_screen.dart';
+import 'package:grade_vault_offline/src/features/onboarding/onboarding_screen.dart';
+import 'package:grade_vault_offline/src/features/settings/presentation/screens/settings_screen.dart';
 import 'package:grade_vault_offline/src/features/splash/splash_screen.dart';
 import 'package:grade_vault_offline/src/shared/shared.dart' show buildRoute;
 
@@ -8,6 +11,15 @@ Route<dynamic>? onGenerateRoute(RouteSettings settings) {
   switch (settings.name) {
     case AppRoutes.splash:
       return buildRoute(const SplashScreen(), settings);
+    case AppRoutes.onboarding:
+      return buildRoute(const OnboardingScreen(), settings);
+    case AppRoutes.licenseManagement:
+      return buildRoute(
+        LicenseManagementScreen(
+          args: settings.arguments as LicenseManagementScreenArgs,
+        ),
+        settings,
+      );
     case AppRoutes.home:
       return buildRoute(const HomeView(), settings);
     case AppRoutes.classView:
@@ -16,6 +28,8 @@ Route<dynamic>? onGenerateRoute(RouteSettings settings) {
       return buildRoute(const StudentView(), settings);
     case AppRoutes.broadSheet:
       return buildRoute(const BroadSheetView(), settings);
+    case AppRoutes.settings:
+      return buildRoute(const SettingsScreen(), settings);
     default:
       return null;
   }

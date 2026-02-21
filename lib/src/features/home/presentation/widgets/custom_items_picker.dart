@@ -87,7 +87,7 @@ class CustomItemsPicker extends HookWidget {
                     final option = filteredOptions.value[index];
                     final isSelected = selectedItems.value.contains(option);
                     return CheckboxListTile(
-                      checkColor: AppColors.white,
+                      checkColor: KitColors.white,
                       title: StyledText(option),
                       value: isSelected,
                       onChanged: (_) => toggleOption(option),

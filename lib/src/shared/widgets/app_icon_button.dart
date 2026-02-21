@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:grade_vault_offline/src/shared/shared.dart'
-    show AppColors, TapBounce, ContextExtensions;
+    show KitColors, TapBounce, ContextExtensions;
 
 class AppIconButton extends StatelessWidget {
   final IconData icon;
@@ -12,7 +12,7 @@ class AppIconButton extends StatelessWidget {
   const AppIconButton({
     super.key,
     required this.icon,
-    this.iconColor = AppColors.black,
+    this.iconColor = KitColors.black,
     this.fillColor,
     this.onTap,
     this.iconSize = 24,

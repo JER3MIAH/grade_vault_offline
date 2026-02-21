@@ -27,7 +27,7 @@ class ClassView extends ConsumerWidget {
         .toList();
     return Scaffold(
       appBar: CustomAppBar(title: title, subtitle: 'Teacher: $teacherName'),
-      body: AppColumn(
+      body: KitColumn(
         crossAxisAlignment: CrossAxisAlignment.start,
         spacing: 12,
         children: [
@@ -46,7 +46,7 @@ class ClassView extends ConsumerWidget {
               ),
               PrimaryButton(
                 title: 'Add Subject',
-                color: AppColors.green500,
+                color: KitColors.green500,
                 icon: Icons.add,
                 onTap: () async {
                   final subjects = await context.showDialog<List<String>>(
@@ -98,7 +98,7 @@ class ClassView extends ConsumerWidget {
                   title: 'Subjects',
                   itemCount: classSection.subjectNames.length,
                   icon: CupertinoIcons.book,
-                  color: AppColors.green500,
+                  color: KitColors.green500,
                 ),
               ),
             ],
@@ -256,7 +256,7 @@ class EmptyStateWidget extends StatelessWidget {
           Icon(
             isStudentTab ? CupertinoIcons.person_2 : CupertinoIcons.book,
             size: 44,
-            color: AppColors.neutral400,
+            color: KitColors.neutral400,
           ),
           StyledText(
             'No ${isStudentTab ? 'students' : 'classes'} Yet',
@@ -266,7 +266,7 @@ class EmptyStateWidget extends StatelessWidget {
           StyledText(
             'Get started by creating your first ${isStudentTab ? 'student' : 'class'}',
             fontSize: 12,
-            color: AppColors.neutral600,
+            color: KitColors.neutral600,
             textAlign: TextAlign.center,
           ),
         ],

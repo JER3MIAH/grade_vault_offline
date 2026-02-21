@@ -32,8 +32,8 @@ class ClassCard extends HookWidget {
         onTap: onTap,
         child: BorderedCard(
           borderColor: isHovering.value
-              ? AppColors.blue500
-              : AppColors.neutral200,
+              ? KitColors.blue500
+              : KitColors.neutral200,
           child: Column(
             spacing: 8,
             mainAxisSize: MainAxisSize.min,
@@ -51,14 +51,14 @@ class ClassCard extends HookWidget {
                 ],
               ),
               StyledText(teacherName),
-              StyledText(session, fontSize: 12, color: AppColors.neutral600),
-              const Divider(color: AppColors.neutral200, height: .5),
+              StyledText(session, fontSize: 12, color: KitColors.neutral600),
+              const Divider(color: KitColors.neutral200, height: .5),
               Row(
                 children: [
                   const Icon(
                     CupertinoIcons.person_2,
                     size: 16,
-                    color: AppColors.neutral600,
+                    color: KitColors.neutral600,
                   ),
                   const XGap(4),
                   StyledText('$noOfStudents Students'),
@@ -66,7 +66,7 @@ class ClassCard extends HookWidget {
                   const Icon(
                     CupertinoIcons.book,
                     size: 16,
-                    color: AppColors.neutral600,
+                    color: KitColors.neutral600,
                   ),
                   const XGap(4),
                   StyledText('$noOfSubjects Subjects'),

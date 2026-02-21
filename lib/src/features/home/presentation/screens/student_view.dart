@@ -25,7 +25,7 @@ class StudentView extends HookConsumerWidget {
     }
     return Scaffold(
       appBar: const CustomAppBar(title: 'Student Details'),
-      body: AppColumn(
+      body: KitColumn(
         spacing: 12,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -38,10 +38,10 @@ class StudentView extends HookConsumerWidget {
             children: [
               SizedBox(
                 width: 150,
-                child: AppSelector(
+                child: KitSelector(
                   items: TERM_LIST,
-                  borderColor: AppColors.neutral200,
-                  focusedBorderColor: AppColors.neutral200,
+                  borderColor: KitColors.neutral200,
+                  focusedBorderColor: KitColors.neutral200,
                   hintText: 'Select Term',
                   value: selectedTerm.value,
                   onChanged: (val) {
@@ -77,7 +77,7 @@ class StudentView extends HookConsumerWidget {
               ),
               PrimaryButton(
                 title: 'Edit Comments',
-                color: AppColors.green500,
+                color: KitColors.green500,
                 icon: CupertinoIcons.bubble_left_bubble_right,
                 iconOnly: context.isMobile,
                 onTap: () {

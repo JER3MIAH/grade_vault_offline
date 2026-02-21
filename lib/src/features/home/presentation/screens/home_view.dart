@@ -19,7 +19,7 @@ class HomeView extends ConsumerWidget {
         title: 'GradeVault',
         actions: [
           IconButton(
-            icon: const Icon(CupertinoIcons.bars, color: AppColors.white),
+            icon: const Icon(CupertinoIcons.bars, color: KitColors.white),
             onPressed: () {
               context.showDialog(const BackupDataDialog());
             },
@@ -133,7 +133,7 @@ class EmptyClassesWidget extends StatelessWidget {
                 const Icon(
                   CupertinoIcons.book,
                   size: 64,
-                  color: AppColors.neutral400,
+                  color: KitColors.neutral400,
                 ),
                 const StyledText(
                   'No classes Yet',
@@ -143,7 +143,7 @@ class EmptyClassesWidget extends StatelessWidget {
                 const StyledText(
                   'Get started by creating your first class',
                   fontSize: 14,
-                  color: AppColors.neutral600,
+                  color: KitColors.neutral600,
                   textAlign: TextAlign.center,
                 ),
                 const YGap(8),

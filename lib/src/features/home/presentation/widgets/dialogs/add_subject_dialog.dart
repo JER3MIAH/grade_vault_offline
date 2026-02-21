@@ -26,7 +26,7 @@ class AddSubjectDialog extends HookWidget {
       children: [
         ConstrainedBox(
           constraints: const BoxConstraints(maxHeight: 250),
-          child: AppMultiSelector(
+          child: KitMultiSelector(
             selectedValues: selectedValues.value,
             items: SUBJECT_LIST,
             isDropdown: false,

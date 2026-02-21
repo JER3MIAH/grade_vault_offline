@@ -69,7 +69,7 @@ class ClassSettingsDialog extends HookConsumerWidget {
             hintText: 'Enter class name',
           ),
           const YGap(8),
-          AppSelector(
+          KitSelector(
             hintText: 'Session',
             value: selectedSession.value,
             items: SESSION_LIST,
@@ -80,7 +80,7 @@ class ClassSettingsDialog extends HookConsumerWidget {
 
           if (BRANCH_LIST.isNotEmpty) ...[
             const YGap(8),
-            AppSelector(
+            KitSelector(
               hintText: 'Branch',
               value: selectedBranch.value,
               items: BRANCH_LIST,
@@ -95,12 +95,12 @@ class ClassSettingsDialog extends HookConsumerWidget {
           ),
           const Padding(
             padding: EdgeInsets.symmetric(vertical: 16.0),
-            child: Divider(color: AppColors.neutral200, height: .5),
+            child: Divider(color: KitColors.neutral200, height: .5),
           ),
           PrimaryButton(
             title: 'Delete Class',
             icon: CupertinoIcons.trash,
-            color: AppColors.red500,
+            color: KitColors.red500,
             onTap: () {
               context.showDialog(
                 DeleteItemDialog(
