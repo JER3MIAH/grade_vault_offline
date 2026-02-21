@@ -13,7 +13,7 @@ mixin AppInitializationMixin on StateNotifier<AppState> {
       final savedState = await repository.getResult();
       if (savedState != null) {
         // Always prefer config-sourced school info over what was persisted
-        state = savedState.copyWith(schoolInfo: AppConfig.instance.schoolInfo);
+        state = savedState;
         _selectFirstClassIfNeeded();
       }
     } catch (e) {

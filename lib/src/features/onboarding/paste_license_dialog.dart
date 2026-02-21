@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:grade_vault_offline/src/core/license/license_notifier.dart';
+import 'package:grade_vault_offline/src/features/home/data/models/school_info.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:toolkit_core/toolkit_core.dart';
 
 class PasteLicenseDialog extends HookConsumerWidget {
-  final Function(dynamic) onSuccess;
+  final Function(SchoolInfo) onSuccess;
 
   const PasteLicenseDialog({super.key, required this.onSuccess});
 

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:grade_vault_offline/src/core/navigation/nav.dart';
+import 'package:grade_vault_offline/src/features/home/presentation/providers/providers.dart';
 import 'package:grade_vault_offline/src/features/onboarding/paste_license_dialog.dart';
 import 'package:grade_vault_offline/src/features/settings/presentation/providers/user_notifier.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -222,6 +223,9 @@ class LicenseManagementScreen extends HookConsumerWidget {
                           'schoolName': newConfig.name,
                           'licenseType': 'Professional',
                         };
+                        ref
+                            .read(appStateProvider.notifier)
+                            .updateSchoolInfoFromData(schoolData: newConfig);
                       },
                     ),
                   );

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:grade_vault_offline/src/features/home/presentation/providers/app_state_provider.dart';
 import 'package:grade_vault_offline/src/features/onboarding/paste_license_dialog.dart';
 import 'package:toolkit_core/toolkit_core.dart' show ContextExtensions, XGap;
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -30,31 +31,6 @@ class LicenseManagementDialog extends HookConsumerWidget {
 
             // Options Grid
             _buildOptionsGrid(ref, decryptedDetails),
-
-            const SizedBox(height: 40),
-
-            // Final Action Button
-            if (decryptedDetails.value != null)
-              ElevatedButton(
-                onPressed: () {
-                  context.pop();
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF2563EB),
-                  foregroundColor: Colors.white,
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 48,
-                    vertical: 20,
-                  ),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                ),
-                child: const Text(
-                  'Continue to App',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                ),
-              ),
 
             const SizedBox(height: 32),
 
@@ -192,6 +168,9 @@ class LicenseManagementDialog extends HookConsumerWidget {
                           'schoolName': newConfig.name,
                           'licenseType': 'Professional',
                         };
+                        ref
+                            .read(appStateProvider.notifier)
+                            .updateSchoolInfoFromData(schoolData: newConfig);
                       },
                     ),
                   );
