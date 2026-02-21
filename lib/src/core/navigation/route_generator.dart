@@ -4,6 +4,8 @@ import 'package:grade_vault_offline/src/features/home/presentation/screens/scree
 import 'package:grade_vault_offline/src/features/onboarding/license_management_screen.dart';
 import 'package:grade_vault_offline/src/features/onboarding/onboarding_screen.dart';
 import 'package:grade_vault_offline/src/features/settings/presentation/screens/settings_screen.dart';
+import 'package:grade_vault_offline/src/features/settings/presentation/screens/generate_license_screen.dart';
+import 'package:grade_vault_offline/src/features/settings/presentation/screens/license_details_screen.dart';
 import 'package:grade_vault_offline/src/features/splash/splash_screen.dart';
 import 'package:grade_vault_offline/src/shared/shared.dart' show buildRoute;
 
@@ -25,6 +27,10 @@ Route<dynamic>? onGenerateRoute(RouteSettings settings) {
       return buildRoute(const BroadSheetView(), settings);
     case AppRoutes.settings:
       return buildRoute(const SettingsScreen(), settings);
+    case AppRoutes.generateLicense:
+      return buildRoute(const GenerateLicenseScreen(), settings);
+    case AppRoutes.licenseDetails:
+      return buildRoute(const LicenseDetailsScreen(), settings);
     default:
       return null;
   }

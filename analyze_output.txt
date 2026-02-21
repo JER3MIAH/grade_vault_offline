@@ -1,0 +1,8 @@
+Analyzing grade_vault_offline...                                
+
+   info - Use 'const' with the constructor to improve performance - lib\src\features\settings\presentation\screens\license_details_screen.dart:105:27 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\src\features\settings\presentation\screens\license_details_screen.dart:106:36 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\src\features\settings\presentation\screens\license_details_screen.dart:109:33 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\src\features\settings\presentation\screens\license_details_screen.dart:115:33 - prefer_const_constructors
+   info - Use 'const' with the constructor to improve performance - lib\src\features\settings\presentation\screens\license_details_screen.dart:122:33 - prefer_const_constructors
+

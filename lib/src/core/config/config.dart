@@ -1,13 +1,17 @@
 const configData = {
   'schoolInfo': {
-    'name': 'Sunflower Preparatory Montessori and High School',
-    'motto': 'Growing and Learning',
-    'address': '29 airport road 46 Central Road Benin City',
-    'logoPath': 'assets/sunflower_icon.png',
-    'branches': ['SF ONE', 'SF TWO', 'SF THREE'],
-    'contactInfo': {'email': '', 'phone1': '', 'phone2': ''},
-    'website': '',
-    'establishedYear': '',
+    'name': 'Demo High School',
+    'motto': 'Excellence in Learning',
+    'address': '123 Demo Street, Tech City',
+    'logoPath': 'assets/app_icon.png',
+    'branches': ['Main Campus'],
+    'contactInfo': {
+      'email': 'demo@example.com',
+      'phone1': '+1234567890',
+      'phone2': '',
+    },
+    'website': 'www.demo-school.com',
+    'establishedYear': '2025',
     'showFinalPosition': false,
     'gradingSystem': {
       'ranges': [

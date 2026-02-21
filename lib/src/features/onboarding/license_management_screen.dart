@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:grade_vault_offline/src/core/navigation/nav.dart';
 import 'package:grade_vault_offline/src/features/settings/presentation/providers/user_notifier.dart';
+import 'package:grade_vault_offline/src/core/license/license_notifier.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:toolkit_core/toolkit_core.dart' show ContextExtensions, XGap;
+import 'package:flutter/services.dart';
 
 class LicenseManagementScreen extends HookConsumerWidget {
   const LicenseManagementScreen({super.key});
@@ -46,7 +48,7 @@ class LicenseManagementScreen extends HookConsumerWidget {
                 const SizedBox(height: 24),
 
                 // Options Grid
-                _buildOptionsGrid(isProcessing, decryptedDetails, () {
+                _buildOptionsGrid(ref, isProcessing, decryptedDetails, () {
                   ref.read(userProvider.notifier).setFirstTime(false);
                 }),
 
@@ -167,6 +169,7 @@ class LicenseManagementScreen extends HookConsumerWidget {
   }
 
   Widget _buildOptionsGrid(
+    WidgetRef ref,
     ValueNotifier<bool> isProcessing,
     ValueNotifier<Map<String, dynamic>?> details,
     VoidCallback onUploadSuccess,
@@ -200,6 +203,7 @@ class LicenseManagementScreen extends HookConsumerWidget {
             _wrapCard(
               isMobile,
               _HoverCard(
+                ref: ref,
                 title: 'Upload License',
                 description:
                     "Already have a license file? Upload it here to activate your school's full features",
@@ -210,17 +214,56 @@ class LicenseManagementScreen extends HookConsumerWidget {
                 iconBg: const Color(0xFFF3E8FF),
                 iconColor: const Color(0xFF9333EA),
                 hoverBorderColor: Colors.purple.shade300,
-                onPressed: () {
-                  // Simulated Logic-less UI trigger
+                onPressed: () async {
                   isProcessing.value = true;
-                  Future.delayed(const Duration(seconds: 1), () {
+                  try {
+                    // Simulate a short delay so the loading state is visible
+                    await Future.delayed(const Duration(milliseconds: 500));
+
+                    // Attempt to read from clipboard
+                    final clipboardData = await Clipboard.getData(
+                      Clipboard.kTextPlain,
+                    );
+                    final clipboardText = clipboardData?.text?.trim();
+
+                    if (clipboardText != null && clipboardText.isNotEmpty) {
+                      final success = await ref
+                          .read(licenseProvider.notifier)
+                          .saveLicense(clipboardText);
+
+                      if (success) {
+                        // Using the new active config directly
+                        final newConfig = ref.read(licenseProvider);
+                        details.value = {
+                          'schoolName': newConfig.name,
+                          'licenseType': 'Professional',
+                        };
+                        onUploadSuccess();
+                      } else {
+                        if (context.mounted) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text('Invalid License String.'),
+                              backgroundColor: Colors.red,
+                            ),
+                          );
+                        }
+                      }
+                    } else {
+                      if (context.mounted) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text(
+                              'No text found in clipboard. Copy your license first.',
+                            ),
+                            backgroundColor: Colors.orange,
+                          ),
+                        );
+                      }
+                    }
+                  } finally {
                     isProcessing.value = false;
-                    details.value = {
-                      'schoolName': 'Example Academy',
-                      'licenseType': 'Professional',
-                    };
-                    onUploadSuccess();
-                  });
+                  }
                 },
               ),
             ),
@@ -279,6 +322,7 @@ class LicenseManagementScreen extends HookConsumerWidget {
 }
 
 class _HoverCard extends HookWidget {
+  final WidgetRef? ref;
   final String title;
   final String description;
   final String buttonText;
@@ -289,6 +333,7 @@ class _HoverCard extends HookWidget {
   final VoidCallback onPressed;
 
   const _HoverCard({
+    this.ref,
     required this.title,
     required this.description,
     required this.buttonText,

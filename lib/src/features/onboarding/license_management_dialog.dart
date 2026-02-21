@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:toolkit_core/toolkit_core.dart' show ContextExtensions, XGap;
+import 'package:grade_vault_offline/src/core/license/license_notifier.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:flutter/services.dart';
 
-class LicenseManagementDialog extends HookWidget {
+class LicenseManagementDialog extends HookConsumerWidget {
   const LicenseManagementDialog({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     // State for simulated file upload and decryption
     final isProcessing = useState(false);
     final decryptedDetails = useState<Map<String, dynamic>?>(null);
@@ -28,7 +31,7 @@ class LicenseManagementDialog extends HookWidget {
             const SizedBox(height: 24),
 
             // Options Grid
-            _buildOptionsGrid(isProcessing, decryptedDetails),
+            _buildOptionsGrid(ref, isProcessing, decryptedDetails),
 
             const SizedBox(height: 40),
 
@@ -36,7 +39,7 @@ class LicenseManagementDialog extends HookWidget {
             if (decryptedDetails.value != null)
               ElevatedButton(
                 onPressed: () {
-                  //TODO:
+                  context.pop();
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFF2563EB),
@@ -141,6 +144,7 @@ class LicenseManagementDialog extends HookWidget {
   }
 
   Widget _buildOptionsGrid(
+    WidgetRef ref,
     ValueNotifier<bool> isProcessing,
     ValueNotifier<Map<String, dynamic>?> details,
   ) {
@@ -173,6 +177,7 @@ class LicenseManagementDialog extends HookWidget {
             _wrapCard(
               isMobile,
               _HoverCard(
+                ref: ref,
                 title: 'Upload License',
                 description:
                     "Already have a license file? Upload it here to activate your school's full features",
@@ -183,16 +188,55 @@ class LicenseManagementDialog extends HookWidget {
                 iconBg: const Color(0xFFF3E8FF),
                 iconColor: const Color(0xFF9333EA),
                 hoverBorderColor: Colors.purple.shade300,
-                onPressed: () {
-                  // Simulated Logic-less UI trigger
+                onPressed: () async {
                   isProcessing.value = true;
-                  Future.delayed(const Duration(seconds: 1), () {
+                  try {
+                    // Simulate a short delay so the loading state is visible
+                    await Future.delayed(const Duration(milliseconds: 500));
+
+                    // Attempt to read from clipboard
+                    final clipboardData = await Clipboard.getData(
+                      Clipboard.kTextPlain,
+                    );
+                    final clipboardText = clipboardData?.text?.trim();
+
+                    if (clipboardText != null && clipboardText.isNotEmpty) {
+                      final success = await ref
+                          .read(licenseProvider.notifier)
+                          .saveLicense(clipboardText);
+
+                      if (success) {
+                        // Using the new active config directly
+                        final newConfig = ref.read(licenseProvider);
+                        details.value = {
+                          'schoolName': newConfig.name,
+                          'licenseType': 'Professional',
+                        };
+                      } else {
+                        if (context.mounted) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text('Invalid License String.'),
+                              backgroundColor: Colors.red,
+                            ),
+                          );
+                        }
+                      }
+                    } else {
+                      if (context.mounted) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text(
+                              'No text found in clipboard. Copy your license first.',
+                            ),
+                            backgroundColor: Colors.orange,
+                          ),
+                        );
+                      }
+                    }
+                  } finally {
                     isProcessing.value = false;
-                    details.value = {
-                      'schoolName': 'Example Academy',
-                      'licenseType': 'Professional',
-                    };
-                  });
+                  }
                 },
               ),
             ),
@@ -230,6 +274,7 @@ class LicenseManagementDialog extends HookWidget {
 }
 
 class _HoverCard extends HookWidget {
+  final WidgetRef? ref;
   final String title;
   final String description;
   final String buttonText;
@@ -240,6 +285,7 @@ class _HoverCard extends HookWidget {
   final VoidCallback onPressed;
 
   const _HoverCard({
+    this.ref,
     required this.title,
     required this.description,
     required this.buttonText,

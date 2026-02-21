@@ -1,17 +1,18 @@
-import 'package:flutter/foundation.dart'; // For kDebugMode
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:grade_vault_offline/src/features/onboarding/license_management_dialog.dart';
+import 'package:grade_vault_offline/src/core/navigation/nav.dart';
+import 'package:grade_vault_offline/src/core/license/license_notifier.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:toolkit_core/toolkit_core.dart' show ContextExtensions;
 
-class SettingsScreen extends HookWidget {
+class SettingsScreen extends HookConsumerWidget {
   const SettingsScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    // Simulated state for school details
-    final schoolDetails = useState<Map<String, dynamic>?>(null);
-    final isLicensed = useState(true);
+  Widget build(BuildContext context, WidgetRef ref) {
+    // Watch active school details
+    final schoolInfo = ref.watch(licenseProvider);
+    final isDemo = schoolInfo.name == 'Demo High School';
 
     return Scaffold(
       backgroundColor: const Color(0xFFF9FAFB), // gray-50
@@ -60,7 +61,7 @@ class SettingsScreen extends HookWidget {
               child: Column(
                 children: [
                   // School Details Card
-                  if (isLicensed.value) _buildSchoolCard(schoolDetails.value),
+                  _buildSchoolCard(schoolInfo.toMap(), isDemo),
 
                   const SizedBox(height: 24),
 
@@ -68,7 +69,7 @@ class SettingsScreen extends HookWidget {
                   _buildSettingsItem(
                     icon: Icons.key_rounded,
                     title: 'License Management',
-                    subtitle: isLicensed.value
+                    subtitle: !isDemo
                         ? 'Update or renew your school license'
                         : 'Activate your school license for full features',
                     iconColor: Colors.blue,
@@ -78,16 +79,13 @@ class SettingsScreen extends HookWidget {
                     ),
                   ),
 
-                  // Development Only Item
-                  if (kDebugMode)
-                    _buildSettingsItem(
-                      icon: Icons.description_outlined,
-                      title: 'Generate Test License',
-                      subtitle:
-                          'Development tool to create sample license files',
-                      iconColor: Colors.orange,
-                      onTap: () {},
-                    ),
+                  _buildSettingsItem(
+                    icon: Icons.description_outlined,
+                    title: 'Generate License String',
+                    subtitle: 'Create a custom license for your school',
+                    iconColor: Colors.orange,
+                    onTap: () => context.pushNamed(AppRoutes.generateLicense),
+                  ),
 
                   _buildSettingsItem(
                     icon: Icons.shield_outlined,
@@ -143,7 +141,7 @@ class SettingsScreen extends HookWidget {
     );
   }
 
-  Widget _buildSchoolCard(Map<String, dynamic>? details) {
+  Widget _buildSchoolCard(Map<String, dynamic>? details, bool isDemo) {
     return Container(
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
@@ -182,9 +180,25 @@ class SettingsScreen extends HookWidget {
                   ),
                 ),
                 const SizedBox(height: 4),
-                const Text(
-                  '123 Education Lane, Lagos State\nsupport@example.edu\n+234 800 000 0000',
-                  style: TextStyle(
+                Text(
+                  details?['address'] ?? '123 Education Lane, Lagos State',
+                  style: const TextStyle(
+                    color: Color(0xFF4B5563),
+                    fontSize: 14,
+                    height: 1.4,
+                  ),
+                ),
+                Text(
+                  details?['contactInfo']?['email'] ?? 'support@example.edu',
+                  style: const TextStyle(
+                    color: Color(0xFF4B5563),
+                    fontSize: 14,
+                    height: 1.4,
+                  ),
+                ),
+                Text(
+                  details?['contactInfo']?['phone1'] ?? '+234 800 000 0000',
+                  style: const TextStyle(
                     color: Color(0xFF4B5563),
                     fontSize: 14,
                     height: 1.4,
@@ -206,16 +220,22 @@ class SettingsScreen extends HookWidget {
                       Container(
                         width: 8,
                         height: 8,
-                        decoration: const BoxDecoration(
-                          color: Color(0xFF22C55E),
+                        decoration: BoxDecoration(
+                          color: isDemo
+                              ? const Color(0xFFEAB308)
+                              : const Color(0xFF22C55E),
                           shape: BoxShape.circle,
                         ),
                       ),
                       const SizedBox(width: 8),
-                      const Text(
-                        'License Active - Professional',
+                      Text(
+                        isDemo
+                            ? 'Demo Mode Active'
+                            : 'License Active - Professional',
                         style: TextStyle(
-                          color: Color(0xFF15803D),
+                          color: isDemo
+                              ? const Color(0xFFA16207)
+                              : const Color(0xFF15803D),
                           fontSize: 12,
                           fontWeight: FontWeight.w500,
                         ),
