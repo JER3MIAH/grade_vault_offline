@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:grade_vault_offline/src/features/home/data/models/models.dart';
 import 'package:grade_vault_offline/src/features/onboarding/license_management_dialog.dart';
 import 'package:grade_vault_offline/src/core/navigation/nav.dart';
 import 'package:grade_vault_offline/src/core/license/license_local_datasource.dart';
@@ -64,7 +65,7 @@ class SettingsScreen extends HookConsumerWidget {
               child: Column(
                 children: [
                   // School Details Card
-                  _buildSchoolCard(schoolInfo.toMap(), isDemo),
+                  _buildSchoolCard(schoolInfo, isDemo),
 
                   const SizedBox(height: 24),
 
@@ -210,7 +211,7 @@ class SettingsScreen extends HookConsumerWidget {
     );
   }
 
-  Widget _buildSchoolCard(Map<String, dynamic>? details, bool isDemo) {
+  Widget _buildSchoolCard(SchoolInfo details, bool isDemo) {
     return Container(
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
@@ -241,7 +242,7 @@ class SettingsScreen extends HookConsumerWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  details?['schoolName'] ?? 'Example International School',
+                  details.name,
                   style: const TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 18,
@@ -250,7 +251,7 @@ class SettingsScreen extends HookConsumerWidget {
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  details?['address'] ?? '123 Education Lane, Lagos State',
+                  details.address,
                   style: const TextStyle(
                     color: Color(0xFF4B5563),
                     fontSize: 14,
@@ -258,7 +259,7 @@ class SettingsScreen extends HookConsumerWidget {
                   ),
                 ),
                 Text(
-                  details?['contactInfo']?['email'] ?? 'support@example.edu',
+                  details.contactInfo.email,
                   style: const TextStyle(
                     color: Color(0xFF4B5563),
                     fontSize: 14,
@@ -266,7 +267,7 @@ class SettingsScreen extends HookConsumerWidget {
                   ),
                 ),
                 Text(
-                  details?['contactInfo']?['phone1'] ?? '+234 800 000 0000',
+                  details.contactInfo.phone1,
                   style: const TextStyle(
                     color: Color(0xFF4B5563),
                     fontSize: 14,
