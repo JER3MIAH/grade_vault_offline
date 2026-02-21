@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:grade_vault_offline/src/features/onboarding/paste.dart';
+import 'package:grade_vault_offline/src/features/onboarding/paste_license_dialog.dart';
 import 'package:toolkit_core/toolkit_core.dart' show ContextExtensions, XGap;
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 

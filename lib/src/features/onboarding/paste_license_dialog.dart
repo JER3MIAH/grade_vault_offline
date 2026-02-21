@@ -14,6 +14,10 @@ class PasteLicenseDialog extends HookConsumerWidget {
     final textCtrl = useTextEditingController();
     final isVerifying = useState(false);
 
+    const border = OutlineInputBorder(
+      borderSide: BorderSide(color: KitColors.neutral300),
+    );
+
     return AlertDialog(
       title: const Text('Paste License String'),
       content: SizedBox(
@@ -23,7 +27,10 @@ class PasteLicenseDialog extends HookConsumerWidget {
           maxLines: 5,
           decoration: const InputDecoration(
             hintText: 'Paste your encrypted license string here...',
-            border: OutlineInputBorder(),
+            border: border,
+            focusedBorder: border,
+            disabledBorder: border,
+            enabledBorder: border,
           ),
         ),
       ),
