@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:grade_vault_offline/src/core/navigation/nav.dart';
+import 'package:grade_vault_offline/src/features/onboarding/paste.dart';
 import 'package:grade_vault_offline/src/features/settings/presentation/providers/user_notifier.dart';
-import 'package:grade_vault_offline/src/core/license/license_notifier.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:toolkit_core/toolkit_core.dart' show ContextExtensions, XGap;
-import 'package:flutter/services.dart';
 
 class LicenseManagementScreen extends HookConsumerWidget {
   const LicenseManagementScreen({super.key});
@@ -215,55 +214,17 @@ class LicenseManagementScreen extends HookConsumerWidget {
                 iconColor: const Color(0xFF9333EA),
                 hoverBorderColor: Colors.purple.shade300,
                 onPressed: () async {
-                  isProcessing.value = true;
-                  try {
-                    // Simulate a short delay so the loading state is visible
-                    await Future.delayed(const Duration(milliseconds: 500));
-
-                    // Attempt to read from clipboard
-                    final clipboardData = await Clipboard.getData(
-                      Clipboard.kTextPlain,
-                    );
-                    final clipboardText = clipboardData?.text?.trim();
-
-                    if (clipboardText != null && clipboardText.isNotEmpty) {
-                      final success = await ref
-                          .read(licenseProvider.notifier)
-                          .saveLicense(clipboardText);
-
-                      if (success) {
-                        // Using the new active config directly
-                        final newConfig = ref.read(licenseProvider);
+                  showDialog(
+                    context: context,
+                    builder: (ctx) => PasteLicenseDialog(
+                      onSuccess: (newConfig) {
                         details.value = {
                           'schoolName': newConfig.name,
                           'licenseType': 'Professional',
                         };
-                        onUploadSuccess();
-                      } else {
-                        if (context.mounted) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text('Invalid License String.'),
-                              backgroundColor: Colors.red,
-                            ),
-                          );
-                        }
-                      }
-                    } else {
-                      if (context.mounted) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text(
-                              'No text found in clipboard. Copy your license first.',
-                            ),
-                            backgroundColor: Colors.orange,
-                          ),
-                        );
-                      }
-                    }
-                  } finally {
-                    isProcessing.value = false;
-                  }
+                      },
+                    ),
+                  );
                 },
               ),
             ),

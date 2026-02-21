@@ -13,6 +13,10 @@ class ResultRepository {
   Future<void> setResult(AppState state) async {
     return await localDatasource.setAppState(state);
   }
+
+  Future<void> clearAllData() async {
+    return await localDatasource.clearAllData();
+  }
 }
 
 final resultRepositoryProvider = Provider<ResultRepository>((ref) {

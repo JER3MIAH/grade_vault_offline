@@ -30,4 +30,16 @@ mixin AppInitializationMixin on StateNotifier<AppState> {
   Future<void> saveState() async {
     await repository.setResult(state);
   }
+
+  Future<void> clearAllData() async {
+    await repository.clearAllData();
+    state = AppState(
+      schoolInfo: AppConfig.instance.schoolInfo,
+      currentTerm: 'First Term',
+      classSections: [],
+      studentRecords: [],
+      selectedClassId: '',
+      selectedStudentId: '',
+    );
+  }
 }

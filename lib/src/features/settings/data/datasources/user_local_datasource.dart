@@ -27,6 +27,15 @@ class UserLocalDatasource {
       log('error setting first time flag: $e at $stack');
     }
   }
+
+  Future<void> clearAllData() async {
+    try {
+      await hiveBox.clear();
+      log('User preference storage cleared successfully');
+    } catch (e, stack) {
+      log('error clearing first time user storage: $e at $stack');
+    }
+  }
 }
 
 final userLocalDatasourceProvider = Provider<UserLocalDatasource>((ref) {

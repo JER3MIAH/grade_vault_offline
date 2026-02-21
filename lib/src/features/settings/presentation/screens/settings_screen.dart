@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:grade_vault_offline/src/features/onboarding/license_management_dialog.dart';
 import 'package:grade_vault_offline/src/core/navigation/nav.dart';
+import 'package:grade_vault_offline/src/core/license/license_local_datasource.dart';
 import 'package:grade_vault_offline/src/core/license/license_notifier.dart';
+import 'package:grade_vault_offline/src/features/home/presentation/providers/app_state_provider.dart';
+import 'package:grade_vault_offline/src/features/settings/data/datasources/user_local_datasource.dart';
+import 'package:grade_vault_offline/src/shared/shared.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:toolkit_core/toolkit_core.dart' show ContextExtensions;
 
 class SettingsScreen extends HookConsumerWidget {
   const SettingsScreen({super.key});
@@ -119,6 +122,14 @@ class SettingsScreen extends HookConsumerWidget {
                     onTap: () {},
                   ),
 
+                  _buildSettingsItem(
+                    icon: Icons.delete_forever_outlined,
+                    title: 'Clear App Data',
+                    subtitle: 'Erase all grades, settings, and license',
+                    iconColor: Colors.red,
+                    onTap: () => _showClearDataConfirmation(context, ref),
+                  ),
+
                   const SizedBox(height: 40),
 
                   // App Info Footer
@@ -138,6 +149,64 @@ class SettingsScreen extends HookConsumerWidget {
           ),
         ),
       ),
+    );
+  }
+
+  void _showClearDataConfirmation(BuildContext context, WidgetRef ref) {
+    showDialog(
+      context: context,
+      builder: (ctx) {
+        return AlertDialog(
+          title: const Text('Clear App Data?'),
+          content: const Text(
+            'This action will permanently delete all your specific configuration, '
+            'generated results, settings, and license info. The app will return to '
+            'its initial state.\n\nAre you absolutely sure?',
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(ctx),
+              child: const Text('Cancel'),
+            ),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.red,
+                foregroundColor: Colors.white,
+              ),
+              onPressed: () async {
+                final navigator = KitNavigator(ctx);
+                final scaffold = ScaffoldMessenger.of(context);
+                final routerContext = context;
+
+                // 1. Erase License
+                await ref.read(licenseLocalDatasourceProvider).clearAllData();
+                ref.invalidate(licenseProvider);
+
+                // 2. Erase App State
+                await ref.read(appStateProvider.notifier).clearAllData();
+
+                // 3. Erase User Preferences
+                await ref.read(userLocalDatasourceProvider).clearAllData();
+
+                navigator.popDialog();
+
+                scaffold.showSnackBar(
+                  const SnackBar(
+                    content: Text('All local app data has been cleared.'),
+                    backgroundColor: Colors.green,
+                  ),
+                );
+
+                // Route to initial
+                if (routerContext.mounted) {
+                  context.replaceAllNamed(AppRoutes.onboarding);
+                }
+              },
+              child: const Text('Clear Everything'),
+            ),
+          ],
+        );
+      },
     );
   }
 

@@ -44,6 +44,15 @@ class ResultLocalDatasource {
       log('error saving app state: $e at $stack');
     }
   }
+
+  Future<void> clearAllData() async {
+    try {
+      await hiveBox.clear();
+      log('Local app state storage cleared successfully');
+    } catch (e, stack) {
+      log('error clearing app state: $e at $stack');
+    }
+  }
 }
 
 class AppStateAdapter extends TypeAdapter<AppState> {

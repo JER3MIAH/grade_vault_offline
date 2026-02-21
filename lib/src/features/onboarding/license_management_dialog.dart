@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:grade_vault_offline/src/features/onboarding/paste.dart';
 import 'package:toolkit_core/toolkit_core.dart' show ContextExtensions, XGap;
-import 'package:grade_vault_offline/src/core/license/license_notifier.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:flutter/services.dart';
 
 class LicenseManagementDialog extends HookConsumerWidget {
   const LicenseManagementDialog({super.key});
@@ -11,7 +10,6 @@ class LicenseManagementDialog extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // State for simulated file upload and decryption
-    final isProcessing = useState(false);
     final decryptedDetails = useState<Map<String, dynamic>?>(null);
 
     return ConstrainedBox(
@@ -31,7 +29,7 @@ class LicenseManagementDialog extends HookConsumerWidget {
             const SizedBox(height: 24),
 
             // Options Grid
-            _buildOptionsGrid(ref, isProcessing, decryptedDetails),
+            _buildOptionsGrid(ref, decryptedDetails),
 
             const SizedBox(height: 40),
 
@@ -145,7 +143,6 @@ class LicenseManagementDialog extends HookConsumerWidget {
 
   Widget _buildOptionsGrid(
     WidgetRef ref,
-    ValueNotifier<bool> isProcessing,
     ValueNotifier<Map<String, dynamic>?> details,
   ) {
     return LayoutBuilder(
@@ -181,52 +178,23 @@ class LicenseManagementDialog extends HookConsumerWidget {
                 title: 'Upload License',
                 description:
                     "Already have a license file? Upload it here to activate your school's full features",
-                buttonText: isProcessing.value
-                    ? 'Processing...'
-                    : 'Upload License',
+                buttonText: 'Upload License',
                 icon: Icons.upload_file_rounded,
                 iconBg: const Color(0xFFF3E8FF),
                 iconColor: const Color(0xFF9333EA),
                 hoverBorderColor: Colors.purple.shade300,
-                onPressed: () async {
-                  isProcessing.value = true;
-                  try {
-                    // Simulate a short delay so the loading state is visible
-                    await Future.delayed(const Duration(milliseconds: 500));
-
-                    // Attempt to read from clipboard
-                    final clipboardData = await Clipboard.getData(
-                      Clipboard.kTextPlain,
-                    );
-                    final clipboardText = clipboardData?.text?.trim();
-
-                    if (clipboardText != null && clipboardText.isNotEmpty) {
-                      final success = await ref
-                          .read(licenseProvider.notifier)
-                          .saveLicense(clipboardText);
-
-                      if (success) {
-                        // Using the new active config directly
-                        final newConfig = ref.read(licenseProvider);
+                onPressed: () {
+                  showDialog(
+                    context: context,
+                    builder: (ctx) => PasteLicenseDialog(
+                      onSuccess: (newConfig) {
                         details.value = {
                           'schoolName': newConfig.name,
                           'licenseType': 'Professional',
                         };
-                      } else {
-                        if (context.mounted) {
-                          context.showErrorSnackBar('Invalid License String.');
-                        }
-                      }
-                    } else {
-                      if (context.mounted) {
-                        context.showErrorSnackBar(
-                          'No text found in clipboard. Copy your license first.',
-                        );
-                      }
-                    }
-                  } finally {
-                    isProcessing.value = false;
-                  }
+                      },
+                    ),
+                  );
                 },
               ),
             ),

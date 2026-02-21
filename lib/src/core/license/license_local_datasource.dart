@@ -30,6 +30,16 @@ class LicenseLocalDatasource {
       return null;
     }
   }
+
+  Future<void> clearAllData() async {
+    try {
+      await _box.clear();
+      KitLogger.info('License storage cleared successfully');
+    } catch (e) {
+      KitLogger.error('Failed to clear license storage: \$e');
+      rethrow;
+    }
+  }
 }
 
 final licenseBoxProvider = Provider<Box<String>>((ref) {
