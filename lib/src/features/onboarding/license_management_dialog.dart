@@ -214,23 +214,13 @@ class LicenseManagementDialog extends HookConsumerWidget {
                         };
                       } else {
                         if (context.mounted) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text('Invalid License String.'),
-                              backgroundColor: Colors.red,
-                            ),
-                          );
+                          context.showErrorSnackBar('Invalid License String.');
                         }
                       }
                     } else {
                       if (context.mounted) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text(
-                              'No text found in clipboard. Copy your license first.',
-                            ),
-                            backgroundColor: Colors.orange,
-                          ),
+                        context.showErrorSnackBar(
+                          'No text found in clipboard. Copy your license first.',
                         );
                       }
                     }
