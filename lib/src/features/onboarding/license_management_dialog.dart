@@ -1,91 +1,65 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:grade_vault_offline/src/core/navigation/nav.dart';
-import 'package:grade_vault_offline/src/features/settings/presentation/providers/user_notifier.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:toolkit_core/toolkit_core.dart' show ContextExtensions, XGap;
 
-class LicenseManagementScreen extends HookConsumerWidget {
-  const LicenseManagementScreen({super.key});
+class LicenseManagementDialog extends HookWidget {
+  const LicenseManagementDialog({super.key});
 
   @override
-  Widget build(BuildContext context, ref) {
+  Widget build(BuildContext context) {
     // State for simulated file upload and decryption
     final isProcessing = useState(false);
     final decryptedDetails = useState<Map<String, dynamic>?>(null);
 
-    return Scaffold(
-      body: Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [
-              Color(0xFFEFF6FF), // blue-50
-              Colors.white,
-              Color(0xFFFAF5FF), // purple-50
-            ],
-          ),
-        ),
-        child: SafeArea(
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 24.0,
-              vertical: 40.0,
-            ),
-            child: Column(
-              children: [
-                // Header Section
-                _buildHeader(),
-                const SizedBox(height: 32),
+    return ConstrainedBox(
+      constraints: BoxConstraints(maxHeight: context.screenHeight * 0.8),
+      child: SingleChildScrollView(
+        padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 40.0),
+        child: Column(
+          children: [
+            // Header Section
+            _buildHeader(),
+            const SizedBox(height: 32),
 
-                // Success Alert (Conditional)
-                if (decryptedDetails.value != null)
-                  _buildSuccessAlert(decryptedDetails.value!),
+            // Success Alert (Conditional)
+            if (decryptedDetails.value != null)
+              _buildSuccessAlert(decryptedDetails.value!),
 
-                const SizedBox(height: 24),
+            const SizedBox(height: 24),
 
-                // Options Grid
-                _buildOptionsGrid(isProcessing, decryptedDetails, () {
-                  ref.read(userProvider.notifier).setFirstTime(false);
-                }),
+            // Options Grid
+            _buildOptionsGrid(isProcessing, decryptedDetails),
 
-                const SizedBox(height: 40),
+            const SizedBox(height: 40),
 
-                // Final Action Button
-                if (decryptedDetails.value != null)
-                  ElevatedButton(
-                    onPressed: () {
-                      ref.read(userProvider.notifier).setFirstTime(false);
-                      context.pushNamed(AppRoutes.home);
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF2563EB),
-                      foregroundColor: Colors.white,
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 48,
-                        vertical: 20,
-                      ),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                    ),
-                    child: const Text(
-                      'Continue to App',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
+            // Final Action Button
+            if (decryptedDetails.value != null)
+              ElevatedButton(
+                onPressed: () {
+                  //TODO:
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xFF2563EB),
+                  foregroundColor: Colors.white,
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 48,
+                    vertical: 20,
                   ),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                ),
+                child: const Text(
+                  'Continue to App',
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                ),
+              ),
 
-                const SizedBox(height: 32),
+            const SizedBox(height: 32),
 
-                // Footer Alert
-                _buildInfoAlert(),
-              ],
-            ),
-          ),
+            // Footer Alert
+            _buildInfoAlert(),
+          ],
         ),
       ),
     );
@@ -169,7 +143,6 @@ class LicenseManagementScreen extends HookConsumerWidget {
   Widget _buildOptionsGrid(
     ValueNotifier<bool> isProcessing,
     ValueNotifier<Map<String, dynamic>?> details,
-    VoidCallback onUploadSuccess,
   ) {
     return LayoutBuilder(
       builder: (context, constraints) {
@@ -219,29 +192,7 @@ class LicenseManagementScreen extends HookConsumerWidget {
                       'schoolName': 'Example Academy',
                       'licenseType': 'Professional',
                     };
-                    onUploadSuccess();
                   });
-                },
-              ),
-            ),
-            SizedBox(
-              width: isMobile ? 0 : spacing,
-              height: isMobile ? spacing : 0,
-            ),
-            _wrapCard(
-              isMobile,
-              _HoverCard(
-                title: 'Try It Out',
-                description:
-                    'Explore all features with demo mode. You can add a license later from settings',
-                buttonText: 'Start Demo',
-                icon: Icons.bolt_rounded,
-                iconBg: const Color(0xFFDCFCE7),
-                iconColor: const Color(0xFF16A34A),
-                hoverBorderColor: Colors.green.shade300,
-                onPressed: () {
-                  onUploadSuccess();
-                  context.pushNamed(AppRoutes.home);
                 },
               ),
             ),

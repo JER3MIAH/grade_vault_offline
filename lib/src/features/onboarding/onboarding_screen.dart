@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:grade_vault_offline/src/core/navigation/nav.dart';
-import 'package:grade_vault_offline/src/features/onboarding/license_management_screen.dart';
 import 'package:toolkit_core/toolkit_core.dart';
 
 class OnboardingScreen extends StatelessWidget {
@@ -115,12 +114,7 @@ class OnboardingScreen extends StatelessWidget {
                     // Action Button
                     ElevatedButton(
                       onPressed: () {
-                        context.pushNamed(
-                          AppRoutes.licenseManagement,
-                          arguments: const LicenseManagementScreenArgs(
-                            showSkip: true,
-                          ),
-                        );
+                        context.pushNamed(AppRoutes.licenseManagement);
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFF2563EB), // blue-600

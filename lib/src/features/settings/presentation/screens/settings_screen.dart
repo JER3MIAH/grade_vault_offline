@@ -1,8 +1,7 @@
 import 'package:flutter/foundation.dart'; // For kDebugMode
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:grade_vault_offline/src/core/navigation/nav.dart';
-import 'package:grade_vault_offline/src/features/onboarding/license_management_screen.dart';
+import 'package:grade_vault_offline/src/features/onboarding/license_management_dialog.dart';
 import 'package:toolkit_core/toolkit_core.dart' show ContextExtensions;
 
 class SettingsScreen extends HookWidget {
@@ -73,12 +72,9 @@ class SettingsScreen extends HookWidget {
                         ? 'Update or renew your school license'
                         : 'Activate your school license for full features',
                     iconColor: Colors.blue,
-                    onTap: () => context.pushNamed(
-                      AppRoutes.licenseManagement,
-                      arguments: LicenseManagementScreenArgs(
-                        showSkip: false,
-                        onComplete: (_) {},
-                      ),
+                    onTap: () => context.showDialog(
+                      maxWidth: 800,
+                      const LicenseManagementDialog(),
                     ),
                   ),
 

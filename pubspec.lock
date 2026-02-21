@@ -753,10 +753,10 @@ packages:
     dependency: "direct main"
     description:
       name: toolkit_core
-      sha256: afd3ea0a01b7882796410e88839c012115837b9782ee12afe4eeda14e8ef88c2
+      sha256: f678cbc9c94b5d7c94c2525115568dd4e1222dba16ff45539dab96e4e331521a
       url: "https://pub.dev"
     source: hosted
-    version: "0.3.1"
+    version: "0.3.2"
   typed_data:
     dependency: transitive
     description:
