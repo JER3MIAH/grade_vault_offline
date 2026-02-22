@@ -6,3 +6,5 @@ export 'term_list.dart';
 export 'session_list.dart';
 export 'gen.dart';
 export 'fonts.dart';
+export 'app_version.dart';
+export 'app_urls.dart';

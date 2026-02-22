@@ -6,3 +6,4 @@ export 'get_dir.dart';
 export 'save_file_stub.dart' if (dart.library.js_interop) 'save_file_web.dart';
 export 'backup_data_service.dart';
 export 'form_validation.dart';
+export 'url_launcher_handler.dart';

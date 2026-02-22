@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:grade_vault_offline/src/core/constants/constants.dart';
 import 'package:grade_vault_offline/src/features/home/data/models/models.dart';
 import 'package:grade_vault_offline/src/features/onboarding/license_management_dialog.dart';
 import 'package:grade_vault_offline/src/core/navigation/nav.dart';
@@ -99,13 +100,13 @@ class SettingsScreen extends HookConsumerWidget {
                     onTap: () {},
                   ),
 
-                  _buildSettingsItem(
-                    icon: Icons.article_outlined,
-                    title: 'Terms of Service',
-                    subtitle: 'Read our terms and conditions',
-                    iconColor: Colors.green,
-                    onTap: () {},
-                  ),
+                  // _buildSettingsItem(
+                  //   icon: Icons.article_outlined,
+                  //   title: 'Terms of Service',
+                  //   subtitle: 'Read our terms and conditions',
+                  //   iconColor: Colors.green,
+                  //   onTap: () {},
+                  // ),
 
                   _buildSettingsItem(
                     icon: Icons.info_outline,
@@ -120,7 +121,9 @@ class SettingsScreen extends HookConsumerWidget {
                     title: 'Support',
                     subtitle: 'Get help and contact support',
                     iconColor: Colors.deepOrange,
-                    onTap: () {},
+                    onTap: () {
+                      launchEmail(SUPPORT_EMAIL);
+                    },
                   ),
 
                   _buildSettingsItem(
@@ -135,7 +138,8 @@ class SettingsScreen extends HookConsumerWidget {
 
                   // App Info Footer
                   const Text(
-                    'Result Generator App\nVersion 1.0.0\nMade for Nigerian Schools 🇳🇬',
+                    'GradeVault Offline\n'
+                    'Version ${AppVersion.currentVersion}+${AppVersion.buildNumber}',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: Color(0xFF6B7280),
