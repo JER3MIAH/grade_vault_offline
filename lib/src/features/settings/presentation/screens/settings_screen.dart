@@ -97,7 +97,9 @@ class SettingsScreen extends HookConsumerWidget {
                     title: 'Privacy Policy',
                     subtitle: 'Learn how we protect your data',
                     iconColor: Colors.purple,
-                    onTap: () {},
+                    onTap: () {
+                      kLaunchUrl(PRIVACY_POLICY_URL);
+                    },
                   ),
 
                   // _buildSettingsItem(
@@ -107,13 +109,14 @@ class SettingsScreen extends HookConsumerWidget {
                   //   iconColor: Colors.green,
                   //   onTap: () {},
                   // ),
-
                   _buildSettingsItem(
                     icon: Icons.info_outline,
                     title: 'About',
                     subtitle: 'App version and information',
                     iconColor: Colors.grey,
-                    onTap: () {},
+                    onTap: () {
+                      context.pushNamed(AppRoutes.about);
+                    },
                   ),
 
                   _buildSettingsItem(

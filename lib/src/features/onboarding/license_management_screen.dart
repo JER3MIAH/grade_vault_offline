@@ -116,7 +116,7 @@ class LicenseManagementScreen extends HookConsumerWidget {
         ),
         const SizedBox(height: 8),
         const Text(
-          'Choose an option below to get started with Result Generator App',
+          'Choose an option below to get started with GradeVault',
           textAlign: TextAlign.center,
           style: TextStyle(fontSize: 18, color: Color(0xFF4B5563)),
         ),

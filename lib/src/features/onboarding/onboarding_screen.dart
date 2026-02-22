@@ -71,7 +71,7 @@ class OnboardingScreen extends StatelessWidget {
                                   color: Colors.blue,
                                   title: 'Offline First',
                                   description:
-                                      'Works completely offline with optional cloud backup and synchronization',
+                                      'Works completely offline with local backup and synchronization',
                                 ),
                               ),
                             ],
@@ -101,7 +101,7 @@ class OnboardingScreen extends StatelessWidget {
                                 color: Colors.blue,
                                 title: 'Offline First',
                                 description:
-                                    'Works completely offline with optional cloud backup and synchronization',
+                                    'Works completely offline with optional local backup and synchronization',
                               ),
                             ],
                           );
