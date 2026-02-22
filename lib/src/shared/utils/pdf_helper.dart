@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 import 'package:flutter/foundation.dart' show kIsWeb;
@@ -81,8 +82,12 @@ class PdfHelper {
   }) async {
     try {
       final pdf = pw.Document();
-      final logoBytes = await rootBundle.load('assets/sunflower_icon.png');
-      final logoImage = pw.MemoryImage(logoBytes.buffer.asUint8List());
+      final logoBytes = await rootBundle.load('assets/app_icon_no_bg.png');
+      final logoImage = appState.schoolInfo.logoPath != null
+          ? pw.MemoryImage(
+              Uint8List.fromList(base64Decode(appState.schoolInfo.logoPath!)),
+            )
+          : pw.MemoryImage(logoBytes.buffer.asUint8List());
 
       final schoolLogo = pw.SizedBox(
         width: 100,
@@ -644,8 +649,12 @@ class PdfHelper {
   }) async {
     try {
       final pdf = pw.Document();
-      final logoBytes = await rootBundle.load('assets/sunflower_icon.png');
-      final logoImage = pw.MemoryImage(logoBytes.buffer.asUint8List());
+      final logoBytes = await rootBundle.load('assets/app_icon_no_bg.png');
+      final logoImage = appState.schoolInfo.logoPath != null
+          ? pw.MemoryImage(
+              Uint8List.fromList(base64Decode(appState.schoolInfo.logoPath!)),
+            )
+          : pw.MemoryImage(logoBytes.buffer.asUint8List());
 
       final schoolLogo = pw.SizedBox(
         width: 100,

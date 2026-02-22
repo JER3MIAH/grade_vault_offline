@@ -291,16 +291,7 @@ class _BroadSheetCard extends HookWidget {
                   SizedBox(
                     width: 100,
                     height: 100,
-                    child: Image.asset(
-                      appState.schoolInfo.logoPath ??
-                          'assets/sunflower_icon.png',
-                      fit: BoxFit.contain,
-                      errorBuilder: (_, _, _) => Container(
-                        color: Colors.grey.shade200,
-                        alignment: Alignment.center,
-                        child: const Icon(Icons.image_not_supported_outlined),
-                      ),
-                    ),
+                    child: LogoDisplay(logo: appState.schoolInfo.logoPath),
                   ),
                   const SizedBox(width: 16),
                   Expanded(
