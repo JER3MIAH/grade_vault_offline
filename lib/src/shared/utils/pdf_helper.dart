@@ -83,7 +83,9 @@ class PdfHelper {
     try {
       final pdf = pw.Document();
       final logoBytes = await rootBundle.load('assets/app_icon_no_bg.png');
-      final logoImage = appState.schoolInfo.logoPath != null
+      final logoImage =
+          appState.schoolInfo.logoPath != null &&
+              !appState.schoolInfo.logoPath!.startsWith('asset')
           ? pw.MemoryImage(
               Uint8List.fromList(base64Decode(appState.schoolInfo.logoPath!)),
             )
@@ -650,7 +652,9 @@ class PdfHelper {
     try {
       final pdf = pw.Document();
       final logoBytes = await rootBundle.load('assets/app_icon_no_bg.png');
-      final logoImage = appState.schoolInfo.logoPath != null
+      final logoImage =
+          appState.schoolInfo.logoPath != null &&
+              !appState.schoolInfo.logoPath!.startsWith('asset')
           ? pw.MemoryImage(
               Uint8List.fromList(base64Decode(appState.schoolInfo.logoPath!)),
             )

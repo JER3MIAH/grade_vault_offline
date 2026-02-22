@@ -9,7 +9,7 @@ class LogoDisplay extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (logo != null) {
+    if (logo != null && !logo!.startsWith('asset')) {
       return Image.memory(
         Uint8List.fromList(base64Decode(logo!)),
         fit: BoxFit.contain,
