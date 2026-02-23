@@ -145,7 +145,7 @@ class LicenseManagementDialog extends HookConsumerWidget {
               isMobile,
               _HoverCard(
                 ref: ref,
-                title: 'Activate Key',
+                title: 'Activate License',
                 description:
                     'Already have your license? Upload or paste it here to activate your features immediately.',
                 buttonText: 'Activate Now',

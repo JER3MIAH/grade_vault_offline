@@ -176,7 +176,7 @@ class LicenseManagementScreen extends HookConsumerWidget {
             _wrapCard(
               isMobile,
               _HoverCard(
-                title: 'Activate Key',
+                title: 'Activate License',
                 description:
                     'Already have your license? Upload or paste it here to activate your features immediately.',
                 buttonText: isProcessing.value
