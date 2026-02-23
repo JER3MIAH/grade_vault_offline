@@ -2,7 +2,8 @@ import 'dart:convert';
 import 'package:grade_vault_offline/src/core/config/app_config.dart';
 import 'package:grade_vault_offline/src/core/constants/constants.dart';
 import 'package:grade_vault_offline/src/features/home/data/models/grading_system.dart';
-import 'package:grade_vault_offline/src/shared/shared.dart' show StringExtensions;
+import 'package:grade_vault_offline/src/shared/shared.dart'
+    show StringExtensions;
 
 class SubjectPerformance {
   final String subjectName;

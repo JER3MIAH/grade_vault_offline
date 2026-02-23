@@ -108,9 +108,7 @@ class LicenseDetailsScreen extends HookConsumerWidget {
                               children: [
                                 Text(
                                   '\${range.min} - \${range.max} (\${range.remark})',
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                  ),
+                                  style: TextStyle(fontWeight: FontWeight.bold),
                                 ),
                                 Text(
                                   'Teacher: \${range.teacherRemark}',

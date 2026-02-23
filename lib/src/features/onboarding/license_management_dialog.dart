@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:grade_vault_offline/src/core/constants/app_urls.dart';
 import 'package:grade_vault_offline/src/features/home/presentation/providers/app_state_provider.dart';
 import 'package:grade_vault_offline/src/features/onboarding/paste_license_dialog.dart';
-import 'package:toolkit_core/toolkit_core.dart' show ContextExtensions, XGap;
+import 'package:grade_vault_offline/src/shared/shared.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class LicenseManagementDialog extends HookConsumerWidget {
@@ -134,13 +135,15 @@ class LicenseManagementDialog extends HookConsumerWidget {
               _HoverCard(
                 title: 'Request License',
                 description:
-                    "Fill out a simple form to receive your school's license file via email within 24 hours",
+                    "Pay a fixed sum of NGN 105,000 and Fill out a simple form to receive your school's license file via email within 24 hours",
                 buttonText: 'Request Now',
                 icon: Icons.open_in_new_rounded,
                 iconBg: const Color(0xFFDBEAFE),
                 iconColor: const Color(0xFF2563EB),
                 hoverBorderColor: Colors.blue.shade300,
-                onPressed: () {},
+                onPressed: () {
+                  kLaunchUrlExternalApplication(LICENSE_PURCHASE_URL);
+                },
               ),
             ),
             SizedBox(

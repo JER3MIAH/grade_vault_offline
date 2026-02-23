@@ -5,3 +5,5 @@ const PRIVACY_POLICY_URL =
     'https://www.jer3miahcodes.com/legal/privacy-policy/gradevault';
 const TERMS_OF_SERVICE_URL =
     'https://www.jer3miahcodes.com/legal/terms-of-service/gradevault';
+
+const LICENSE_PURCHASE_URL = 'https://selar.com/75y813j7n8';

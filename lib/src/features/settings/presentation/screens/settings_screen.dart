@@ -84,14 +84,13 @@ class SettingsScreen extends HookConsumerWidget {
                     ),
                   ),
 
-                  _buildSettingsItem(
-                    icon: Icons.description_outlined,
-                    title: 'Generate License String',
-                    subtitle: 'Create a custom license for your school',
-                    iconColor: Colors.orange,
-                    onTap: () => context.pushNamed(AppRoutes.generateLicense),
-                  ),
-
+                  // _buildSettingsItem(
+                  //   icon: Icons.description_outlined,
+                  //   title: 'Generate License String',
+                  //   subtitle: 'Create a custom license for your school',
+                  //   iconColor: Colors.orange,
+                  //   onTap: () => context.pushNamed(AppRoutes.generateLicense),
+                  // ),
                   _buildSettingsItem(
                     icon: Icons.shield_outlined,
                     title: 'Privacy Policy',
