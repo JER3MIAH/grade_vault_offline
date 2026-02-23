@@ -178,8 +178,10 @@ class LicenseManagementScreen extends HookConsumerWidget {
               _HoverCard(
                 title: 'Activate Key',
                 description:
-                    'Already have your license key? Paste it here to unlock your school profile.',
-                buttonText: isProcessing.value ? 'Processing...' : 'Enter Key',
+                    'Already have your license? Upload or paste it here to activate your features immediately.',
+                buttonText: isProcessing.value
+                    ? 'Processing...'
+                    : 'Activate Now',
                 icon: Icons.vpn_key_rounded,
                 iconBg: const Color(0xFFF3E8FF),
                 iconColor: const Color(0xFF9333EA),

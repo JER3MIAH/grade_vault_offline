@@ -8,3 +8,4 @@ export 'backup_data_service.dart';
 export 'form_validation.dart';
 export 'url_launcher_handler.dart';
 export 'image_picker_helper.dart';
+export 'license_file_helper.dart';
