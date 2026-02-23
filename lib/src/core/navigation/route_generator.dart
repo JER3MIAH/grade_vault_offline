@@ -7,7 +7,15 @@ import 'package:grade_vault_offline/src/features/settings/presentation/screens/a
 import 'package:grade_vault_offline/src/features/settings/presentation/screens/settings_screen.dart';
 import 'package:grade_vault_offline/src/features/settings/presentation/screens/license_details_screen.dart';
 import 'package:grade_vault_offline/src/features/splash/splash_screen.dart';
-import 'package:grade_vault_offline/src/shared/shared.dart' show buildRoute;
+import 'package:toolkit_core/toolkit_core.dart' as tkc;
+
+PageRouteBuilder buildRoute(
+  Widget page,
+  RouteSettings settings, {
+  tkc.TransitionType transition = tkc.TransitionType.fade,
+}) {
+  return tkc.buildRoute(page, settings, transition: transition);
+}
 
 Route<dynamic>? onGenerateRoute(RouteSettings settings) {
   switch (settings.name) {
