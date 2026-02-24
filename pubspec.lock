@@ -881,10 +881,10 @@ packages:
     dependency: "direct main"
     description:
       name: toolkit_core
-      sha256: f678cbc9c94b5d7c94c2525115568dd4e1222dba16ff45539dab96e4e331521a
+      sha256: "4a4d08c4b1829a8c7e8d409d400feecfd98ecab9d3f61080d6af05b2c6f9e128"
       url: "https://pub.dev"
     source: hosted
-    version: "0.3.2"
+    version: "0.3.3"
   typed_data:
     dependency: transitive
     description:
