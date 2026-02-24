@@ -17,7 +17,7 @@ class SettingsScreen extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     // Watch active school details
     final schoolInfo = ref.watch(licenseProvider);
-    final isDemo = schoolInfo.name == 'Demo High School';
+    final isDemo = schoolInfo.isDemo;
 
     return Scaffold(
       backgroundColor: const Color(0xFFF9FAFB), // gray-50

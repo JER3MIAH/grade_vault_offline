@@ -49,8 +49,7 @@ class BroadSheetView extends HookConsumerWidget {
       floatingActionButton: studentsInClass.isNotEmpty
           ? FloatingActionButton.extended(
               onPressed: () async {
-                final isDemo =
-                    ref.read(licenseProvider).name == 'Demo High School';
+                final isDemo = ref.read(licenseProvider).isDemo;
                 if (isDemo) {
                   final actionTracker = ref.read(saveLimitProvider.notifier);
                   final canGenerate = await actionTracker.attemptAction();

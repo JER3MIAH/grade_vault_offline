@@ -25,7 +25,7 @@ class GenerateResultDialog extends HookConsumerWidget {
       title: 'Select Term',
       primaryButtonTitle: 'Generate',
       onTap: () async {
-        final isDemo = ref.read(licenseProvider).name == 'Demo High School';
+        final isDemo = ref.read(licenseProvider).isDemo;
         if (isDemo) {
           final actionTracker = ref.read(saveLimitProvider.notifier);
           final canGenerate = await actionTracker.attemptAction();

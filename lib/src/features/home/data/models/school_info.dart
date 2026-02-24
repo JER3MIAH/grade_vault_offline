@@ -13,6 +13,8 @@ class SchoolInfo {
   final GradingSystem gradingSystem;
   final bool showFinalPosition;
 
+  bool get isDemo => name == 'Demo High School';
+
   SchoolInfo({
     this.name = '',
     this.motto = '',
