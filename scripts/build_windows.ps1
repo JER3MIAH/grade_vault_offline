@@ -46,7 +46,7 @@ Write-Host ""
 $isccPath = Get-Command iscc -ErrorAction SilentlyContinue
 if ($isccPath) {
     Write-Host "Building installer using Inno Setup..." -ForegroundColor Yellow
-    & iscc installers\grade_vault_installer.iss
+    & iscc installers\windows_installer.iss
     if ($LASTEXITCODE -ne 0) {
         Write-Host "Installer creation failed!" -ForegroundColor Red
         Read-Host "Press Enter to exit"

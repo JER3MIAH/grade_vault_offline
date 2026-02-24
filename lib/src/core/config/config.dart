@@ -3,8 +3,8 @@ const configData = {
     'name': 'Demo High School',
     'motto': 'Excellence in Learning',
     'address': '123 Demo Street, Tech City',
-    'logoPath': 'assets/app_icon.png',
-    'branches': ['Main Campus'],
+    'logoPath': 'assets/app_icon_no_bg.png',
+    'branches': [],
     'contactInfo': {
       'email': 'demo@example.com',
       'phone1': '+1234567890',

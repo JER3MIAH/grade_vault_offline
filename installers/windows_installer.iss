@@ -5,7 +5,7 @@
 #define MyAppVersion "1.0.0"
 #define MyAppPublisher "Jeremiah Owoade"
 #define MyAppURL "https://github.com/JER3MIAH"
-#define MyAppExeName "grade_vault.exe"
+#define MyAppExeName "grade_vault_offline.exe"
 #define MyAppDescription "A Flutter application for managing results"
 
 [Setup]
