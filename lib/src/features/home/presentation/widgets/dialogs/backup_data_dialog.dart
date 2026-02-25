@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:grade_vault_offline/src/core/navigation/app_routes.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:grade_vault_offline/src/features/home/presentation/providers/app_state_provider.dart';
+import 'package:grade_vault_offline/src/features/home/presentation/widgets/dialogs/export_data_dialog.dart';
 import 'package:grade_vault_offline/src/shared/shared.dart';
 
 class BackupDataDialog extends ConsumerWidget {
@@ -21,21 +22,9 @@ class BackupDataDialog extends ConsumerWidget {
             title: 'Export Local Backup',
             subtitle: 'Download JSON file',
             icon: Icons.file_download_outlined,
-            onTap: () async {
-              final service = BackupDataService();
-              final filePath = await service.exportData(
-                classes: appState.classSections,
-                students: appState.studentRecords,
-              );
-
-              if (context.mounted) {
-                if (filePath != null) {
-                  context.showSuccessSnackBar('Backup exported to $filePath');
-                } else {
-                  context.showErrorSnackBar('Failed to export backup');
-                }
-                context.pop(); // Close backup dialog
-              }
+            onTap: () {
+              context.pop();
+              context.showDialog(const ExportDataDialog());
             },
           ),
           _CustomTile(

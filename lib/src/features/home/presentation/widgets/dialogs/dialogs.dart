@@ -6,3 +6,4 @@ export 'generate_result_dialog.dart';
 export 'edit_comments_dialog.dart';
 export 'delete_class_dialog.dart';
 export 'backup_data_dialog.dart';
+export 'export_data_dialog.dart';
