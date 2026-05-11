@@ -12,8 +12,8 @@ class SchoolInfo {
   final String establishedYear;
   final GradingSystem gradingSystem;
   final bool showFinalPosition;
-
-  bool get isDemo => name == 'Demo High School';
+  final List<String> customSubjects;
+  final List<String> customClasses;
 
   SchoolInfo({
     this.name = '',
@@ -26,6 +26,8 @@ class SchoolInfo {
     this.establishedYear = '',
     GradingSystem? gradingSystem,
     this.showFinalPosition = false,
+    this.customSubjects = const [],
+    this.customClasses = const [],
   }) : contactInfo = contactInfo ?? ContactInfo(),
        gradingSystem = gradingSystem ?? GradingSystem();
 
@@ -40,6 +42,8 @@ class SchoolInfo {
     String? establishedYear,
     GradingSystem? gradingSystem,
     bool? showFinalPosition,
+    List<String>? customSubjects,
+    List<String>? customClasses,
   }) {
     return SchoolInfo(
       name: name ?? this.name,
@@ -52,6 +56,8 @@ class SchoolInfo {
       establishedYear: establishedYear ?? this.establishedYear,
       gradingSystem: gradingSystem ?? this.gradingSystem,
       showFinalPosition: showFinalPosition ?? this.showFinalPosition,
+      customSubjects: customSubjects ?? this.customSubjects,
+      customClasses: customClasses ?? this.customClasses,
     );
   }
 
@@ -67,6 +73,8 @@ class SchoolInfo {
       'establishedYear': establishedYear,
       'gradingSystem': gradingSystem.toMap(),
       'showFinalPosition': showFinalPosition,
+      'customSubjects': customSubjects,
+      'customClasses': customClasses,
     };
   }
 
@@ -88,6 +96,12 @@ class SchoolInfo {
           ? GradingSystem.fromMap(map['gradingSystem'])
           : GradingSystem(),
       showFinalPosition: map['showFinalPosition'] as bool? ?? false,
+      customSubjects: map['customSubjects'] == null
+          ? []
+          : List<String>.from(map['customSubjects']),
+      customClasses: map['customClasses'] == null
+          ? []
+          : List<String>.from(map['customClasses']),
     );
   }
 }

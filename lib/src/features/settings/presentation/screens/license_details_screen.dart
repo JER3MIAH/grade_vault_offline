@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:grade_vault_offline/src/core/license/license_notifier.dart';
+import 'package:grade_vault_offline/src/features/home/presentation/providers/app_state_provider.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:toolkit_core/toolkit_core.dart' show ContextExtensions;
 
@@ -8,7 +8,7 @@ class LicenseDetailsScreen extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final schoolInfo = ref.watch(licenseProvider);
+    final schoolInfo = ref.watch(appStateProvider.select((s) => s.schoolInfo));
 
     return Scaffold(
       backgroundColor: const Color(0xFFF9FAFB),

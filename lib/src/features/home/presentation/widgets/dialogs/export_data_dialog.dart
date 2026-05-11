@@ -163,7 +163,7 @@ class ExportDataDialog extends HookConsumerWidget {
                   shrinkWrap: true,
                   padding: EdgeInsets.zero,
                   itemCount: allClasses.length,
-                  separatorBuilder: (_, __) => const Divider(height: 1),
+                  separatorBuilder: (_, _) => const Divider(height: 1),
                   itemBuilder: (context, index) {
                     final classItem = allClasses[index];
                     final isSelected = selectedClassIds.value.contains(

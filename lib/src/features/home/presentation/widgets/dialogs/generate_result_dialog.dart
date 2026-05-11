@@ -2,10 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:grade_vault_offline/src/core/constants/constants.dart';
-import 'package:grade_vault_offline/src/core/license/license_notifier.dart';
 import 'package:grade_vault_offline/src/features/home/presentation/providers/app_state_provider.dart';
-import 'package:grade_vault_offline/src/features/onboarding/license_management_dialog.dart';
-import 'package:grade_vault_offline/src/features/settings/presentation/providers/action_tracker_notifier.dart';
 import 'package:grade_vault_offline/src/shared/shared.dart';
 
 class GenerateResultDialog extends HookConsumerWidget {
@@ -25,28 +22,6 @@ class GenerateResultDialog extends HookConsumerWidget {
       title: 'Select Term',
       primaryButtonTitle: 'Generate',
       onTap: () async {
-        final isDemo = ref.read(licenseProvider).isDemo;
-        if (isDemo) {
-          final actionTracker = ref.read(saveLimitProvider.notifier);
-          final canGenerate = await actionTracker.attemptAction();
-          if (!context.mounted) return;
-          if (!canGenerate) {
-            context.showErrorSnackBar(
-              'Action limit exceeded. Please upgrade your license to generate more results.',
-              SnackBarAction(
-                label: 'Upgrade',
-                onPressed: () {
-                  context.showDialog(
-                    const LicenseManagementDialog(),
-                    maxWidth: 800,
-                  );
-                },
-              ),
-            );
-            return;
-          }
-        }
-
         final file = await PdfHelper().generateResultPdf(
           appState: appState,
           classId: classId,

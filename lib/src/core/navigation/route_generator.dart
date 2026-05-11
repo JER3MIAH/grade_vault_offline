@@ -5,6 +5,7 @@ import 'package:grade_vault_offline/src/features/onboarding/license_management_s
 import 'package:grade_vault_offline/src/features/onboarding/onboarding_screen.dart';
 import 'package:grade_vault_offline/src/features/settings/presentation/screens/about_screen.dart';
 import 'package:grade_vault_offline/src/features/settings/presentation/screens/settings_screen.dart';
+import 'package:grade_vault_offline/src/features/settings/presentation/screens/school_settings_screen.dart';
 import 'package:grade_vault_offline/src/features/settings/presentation/screens/license_details_screen.dart';
 import 'package:grade_vault_offline/src/features/splash/splash_screen.dart';
 import 'package:toolkit_core/toolkit_core.dart' as tkc;
@@ -35,6 +36,8 @@ Route<dynamic>? onGenerateRoute(RouteSettings settings) {
       return buildRoute(const BroadSheetView(), settings);
     case AppRoutes.settings:
       return buildRoute(const SettingsScreen(), settings);
+    case AppRoutes.schoolSettings:
+      return buildRoute(const SchoolSettingsScreen(), settings);
     case AppRoutes.about:
       return buildRoute(const AboutScreen(), settings);
     // case AppRoutes.generateLicense:

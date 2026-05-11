@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:grade_vault_offline/src/core/constants/constants.dart';
 import 'package:grade_vault_offline/src/features/home/data/models/models.dart';
-import 'package:grade_vault_offline/src/features/onboarding/license_management_dialog.dart';
 import 'package:grade_vault_offline/src/core/navigation/nav.dart';
-import 'package:grade_vault_offline/src/core/license/license_local_datasource.dart';
-import 'package:grade_vault_offline/src/core/license/license_notifier.dart';
 import 'package:grade_vault_offline/src/features/home/presentation/providers/app_state_provider.dart';
 import 'package:grade_vault_offline/src/features/settings/data/datasources/user_local_datasource.dart';
 import 'package:grade_vault_offline/src/shared/shared.dart';
@@ -15,12 +12,10 @@ class SettingsScreen extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // Watch active school details
-    final schoolInfo = ref.watch(licenseProvider);
-    final isDemo = schoolInfo.isDemo;
+    final schoolInfo = ref.watch(appStateProvider.select((s) => s.schoolInfo));
 
     return Scaffold(
-      backgroundColor: const Color(0xFFF9FAFB), // gray-50
+      backgroundColor: const Color(0xFFF9FAFB),
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
@@ -65,32 +60,18 @@ class SettingsScreen extends HookConsumerWidget {
               ),
               child: Column(
                 children: [
-                  // School Details Card
-                  _buildSchoolCard(schoolInfo, isDemo),
+                  _buildSchoolCard(context, schoolInfo),
 
                   const SizedBox(height: 24),
 
-                  // Settings Menu List
                   _buildSettingsItem(
-                    icon: Icons.key_rounded,
-                    title: 'License Management',
-                    subtitle: !isDemo
-                        ? 'Update or renew your school license'
-                        : 'Activate your school license for full features',
+                    icon: Icons.school_outlined,
+                    title: 'School Settings',
+                    subtitle: 'Edit school info, grading, subjects & more',
                     iconColor: Colors.blue,
-                    onTap: () => context.showDialog(
-                      maxWidth: 800,
-                      const LicenseManagementDialog(),
-                    ),
+                    onTap: () => context.pushNamed(AppRoutes.schoolSettings),
                   ),
 
-                  // _buildSettingsItem(
-                  //   icon: Icons.description_outlined,
-                  //   title: 'Generate License String',
-                  //   subtitle: 'Create a custom license for your school',
-                  //   iconColor: Colors.orange,
-                  //   onTap: () => context.pushNamed(AppRoutes.generateLicense),
-                  // ),
                   _buildSettingsItem(
                     icon: Icons.shield_outlined,
                     title: 'Privacy Policy',
@@ -101,13 +82,6 @@ class SettingsScreen extends HookConsumerWidget {
                     },
                   ),
 
-                  // _buildSettingsItem(
-                  //   icon: Icons.article_outlined,
-                  //   title: 'Terms of Service',
-                  //   subtitle: 'Read our terms and conditions',
-                  //   iconColor: Colors.green,
-                  //   onTap: () {},
-                  // ),
                   _buildSettingsItem(
                     icon: Icons.info_outline,
                     title: 'About',
@@ -131,14 +105,13 @@ class SettingsScreen extends HookConsumerWidget {
                   _buildSettingsItem(
                     icon: Icons.delete_forever_outlined,
                     title: 'Clear App Data',
-                    subtitle: 'Erase all grades, settings, and license',
+                    subtitle: 'Erase all grades, settings, and school info',
                     iconColor: Colors.red,
                     onTap: () => _showClearDataConfirmation(context, ref),
                   ),
 
                   const SizedBox(height: 40),
 
-                  // App Info Footer
                   const Text(
                     'GradeVault Offline\n'
                     'Version ${AppVersion.currentVersion}+${AppVersion.buildNumber}',
@@ -166,8 +139,8 @@ class SettingsScreen extends HookConsumerWidget {
         return AlertDialog(
           title: const Text('Clear App Data?'),
           content: const Text(
-            'This action will permanently delete all your specific configuration, '
-            'generated results, settings, and license info. The app will return to '
+            'This action will permanently delete all your school configuration, '
+            'generated results, and settings. The app will return to '
             'its initial state.\n\nAre you absolutely sure?',
           ),
           actions: [
@@ -185,14 +158,7 @@ class SettingsScreen extends HookConsumerWidget {
                 final scaffold = ScaffoldMessenger.of(context);
                 final routerContext = context;
 
-                // 1. Erase License
-                await ref.read(licenseLocalDatasourceProvider).clearAllData();
-                ref.invalidate(licenseProvider);
-
-                // 2. Erase App State
                 await ref.read(appStateProvider.notifier).clearAllData();
-
-                // 3. Erase User Preferences
                 await ref.read(userLocalDatasourceProvider).clearAllData();
 
                 navigator.popDialog();
@@ -204,7 +170,6 @@ class SettingsScreen extends HookConsumerWidget {
                   ),
                 );
 
-                // Route to initial
                 if (routerContext.mounted) {
                   context.replaceAllNamed(AppRoutes.onboarding);
                 }
@@ -217,7 +182,7 @@ class SettingsScreen extends HookConsumerWidget {
     );
   }
 
-  Widget _buildSchoolCard(SchoolInfo details, bool isDemo) {
+  Widget _buildSchoolCard(BuildContext context, SchoolInfo details) {
     return Container(
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
@@ -248,75 +213,76 @@ class SettingsScreen extends HookConsumerWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  details.name,
-                  style: const TextStyle(
+                  details.name.isNotEmpty ? details.name : 'No school name set',
+                  style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 18,
-                    color: Color(0xFF111827),
+                    color: details.name.isNotEmpty
+                        ? const Color(0xFF111827)
+                        : const Color(0xFF9CA3AF),
                   ),
                 ),
-                const SizedBox(height: 4),
-                Text(
-                  details.address,
-                  style: const TextStyle(
-                    color: Color(0xFF4B5563),
-                    fontSize: 14,
-                    height: 1.4,
+                if (details.address.isNotEmpty) ...[
+                  const SizedBox(height: 4),
+                  Text(
+                    details.address,
+                    style: const TextStyle(
+                      color: Color(0xFF4B5563),
+                      fontSize: 14,
+                      height: 1.4,
+                    ),
                   ),
-                ),
-                Text(
-                  details.contactInfo.email,
-                  style: const TextStyle(
-                    color: Color(0xFF4B5563),
-                    fontSize: 14,
-                    height: 1.4,
+                ],
+                if (details.contactInfo.email.isNotEmpty)
+                  Text(
+                    details.contactInfo.email,
+                    style: const TextStyle(
+                      color: Color(0xFF4B5563),
+                      fontSize: 14,
+                      height: 1.4,
+                    ),
                   ),
-                ),
-                Text(
-                  details.contactInfo.phone1,
-                  style: const TextStyle(
-                    color: Color(0xFF4B5563),
-                    fontSize: 14,
-                    height: 1.4,
+                if (details.contactInfo.phone1.isNotEmpty)
+                  Text(
+                    details.contactInfo.phone1,
+                    style: const TextStyle(
+                      color: Color(0xFF4B5563),
+                      fontSize: 14,
+                      height: 1.4,
+                    ),
                   ),
-                ),
                 const SizedBox(height: 12),
-                Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 10,
-                    vertical: 4,
-                  ),
-                  decoration: BoxDecoration(
-                    color: const Color(0xFFDCFCE7),
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Container(
-                        width: 8,
-                        height: 8,
-                        decoration: BoxDecoration(
-                          color: isDemo
-                              ? const Color(0xFFEAB308)
-                              : const Color(0xFF22C55E),
-                          shape: BoxShape.circle,
+                GestureDetector(
+                  onTap: () => context.pushNamed(AppRoutes.schoolSettings),
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 10,
+                      vertical: 4,
+                    ),
+                    decoration: BoxDecoration(
+                      color: const Color(0xFFEFF6FF),
+                      borderRadius: BorderRadius.circular(20),
+                      border: Border.all(color: const Color(0xFFBFDBFE)),
+                    ),
+                    child: const Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(
+                          Icons.edit_outlined,
+                          size: 12,
+                          color: Color(0xFF2563EB),
                         ),
-                      ),
-                      const SizedBox(width: 8),
-                      Text(
-                        isDemo
-                            ? 'Demo Mode Active'
-                            : 'License Active - Professional',
-                        style: TextStyle(
-                          color: isDemo
-                              ? const Color(0xFFA16207)
-                              : const Color(0xFF15803D),
-                          fontSize: 12,
-                          fontWeight: FontWeight.w500,
+                        SizedBox(width: 6),
+                        Text(
+                          'Edit School Info',
+                          style: TextStyle(
+                            color: Color(0xFF2563EB),
+                            fontSize: 12,
+                            fontWeight: FontWeight.w500,
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ],

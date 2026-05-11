@@ -179,12 +179,9 @@ class OnboardingScreen extends StatelessWidget {
         ),
         const YGap(16),
         const Text(
-          'Professional result management for Nigerian schools. Work offline, manage students, generate reports, and sync securely.',
+          'Free, open-source result management for schools. Work fully offline, manage students, and generate professional PDF reports.',
           textAlign: TextAlign.center,
-          style: TextStyle(
-            fontSize: 18,
-            color: Color(0xFF4B5563), // gray-600
-          ),
+          style: TextStyle(fontSize: 18, color: Color(0xFF4B5563)),
         ),
       ],
     );

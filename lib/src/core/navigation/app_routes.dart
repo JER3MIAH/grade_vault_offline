@@ -9,6 +9,6 @@ class AppRoutes {
   static const broadSheet = '/broadSheet';
   static const settings = '/settings';
   static const about = '/about';
-  // static const generateLicense = '/generate-license';
+  static const schoolSettings = '/school-settings';
   static const licenseDetails = '/license-details';
 }

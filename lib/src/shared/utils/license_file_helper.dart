@@ -8,13 +8,13 @@ class LicenseFileHelper {
       final result = await FilePicker.platform.pickFiles(
         type: FileType.custom,
         allowedExtensions: ['txt'],
-        withData: true, 
+        withData: true,
       );
 
       if (result != null && result.files.single.bytes != null) {
         final file = result.files.single;
         final content = utf8.decode(file.bytes!);
-        
+
         return (name: file.name, content: content);
       }
       return null;

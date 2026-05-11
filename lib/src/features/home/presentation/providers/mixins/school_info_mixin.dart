@@ -15,6 +15,8 @@ mixin SchoolInfoMixin on StateNotifier<AppState> {
     String? establishedYear,
     GradingSystem? gradingSystem,
     bool? showFinalPosition,
+    List<String>? customSubjects,
+    List<String>? customClasses,
   }) async {
     final updatedSchoolInfo = state.schoolInfo.copyWith(
       name: name,
@@ -27,6 +29,8 @@ mixin SchoolInfoMixin on StateNotifier<AppState> {
       establishedYear: establishedYear,
       gradingSystem: gradingSystem,
       showFinalPosition: showFinalPosition,
+      customSubjects: customSubjects,
+      customClasses: customClasses,
     );
 
     state = state.copyWith(schoolInfo: updatedSchoolInfo);
