@@ -36,7 +36,7 @@ echo ""
 # Check if Inno Setup compiler exists (for Windows systems)
 if command -v iscc &> /dev/null; then
     echo "Building installer using Inno Setup..."
-    iscc installers/grade_vault_installer.iss
+    iscc installers/windows_installer.iss
     if [ $? -eq 0 ]; then
         echo "Installer created successfully!"
         echo "Check installers/Output folder for the setup executable."

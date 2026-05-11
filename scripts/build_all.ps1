@@ -102,7 +102,7 @@ if ($isccPath) {
     Write-Host "Step 5: Building Windows Installer" -ForegroundColor Cyan
     Write-Host "========================================" -ForegroundColor Cyan
     Write-Host ""
-    & iscc installers\grade_vault_installer.iss
+    & iscc installers\windows_installer.iss
     if ($LASTEXITCODE -ne 0) {
         Write-Host "Warning: Installer creation had issues." -ForegroundColor Yellow
     }

@@ -88,7 +88,7 @@ if command -v iscc &> /dev/null; then
     echo "Step 5: Building Windows Installer"
     echo "========================================"
     echo ""
-    iscc installers/grade_vault_installer.iss
+    iscc installers/windows_installer.iss
     if [ $? -ne 0 ]; then
         echo "Warning: Installer creation had issues."
     else
