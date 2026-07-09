@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:grade_vault_offline/src/core/navigation/nav.dart';
 import 'package:grade_vault_offline/src/features/home/presentation/screens/screens.dart';
-import 'package:grade_vault_offline/src/features/onboarding/license_management_screen.dart';
 import 'package:grade_vault_offline/src/features/onboarding/onboarding_screen.dart';
 import 'package:grade_vault_offline/src/features/settings/presentation/screens/about_screen.dart';
 import 'package:grade_vault_offline/src/features/settings/presentation/screens/settings_screen.dart';
@@ -24,8 +23,6 @@ Route<dynamic>? onGenerateRoute(RouteSettings settings) {
       return buildRoute(const SplashScreen(), settings);
     case AppRoutes.onboarding:
       return buildRoute(const OnboardingScreen(), settings);
-    case AppRoutes.licenseManagement:
-      return buildRoute(const LicenseManagementScreen(), settings);
     case AppRoutes.home:
       return buildRoute(const HomeView(), settings);
     case AppRoutes.classView:

@@ -4,7 +4,6 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:grade_vault_offline/src/app.dart';
 import 'package:grade_vault_offline/src/core/config/app_config.dart';
 import 'package:grade_vault_offline/src/features/home/data/datasources/result_local_datasource.dart';
-import 'package:grade_vault_offline/src/core/license/license_local_datasource.dart';
 import 'package:grade_vault_offline/src/core/utils/loading_indicator_remover.dart'
     if (dart.library.js_interop) 'package:grade_vault_offline/src/core/utils/loading_indicator_remover_web.dart';
 
@@ -16,16 +15,12 @@ Future<void> main() async {
 
   // Initialize storage
   final hiveBox = await ResultLocalDatasource.initializeHive();
-  final licenseBox = await LicenseLocalDatasource.initializeHive();
 
   await AppConfig.load();
 
   runApp(
     ProviderScope(
-      overrides: [
-        hiveBoxProvider.overrideWithValue(hiveBox),
-        licenseBoxProvider.overrideWithValue(licenseBox),
-      ],
+      overrides: [hiveBoxProvider.overrideWithValue(hiveBox)],
       child: const MyApp(),
     ),
   );
