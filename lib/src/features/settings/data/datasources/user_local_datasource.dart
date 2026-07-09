@@ -9,6 +9,8 @@ class UserLocalDatasource {
   UserLocalDatasource({required this.hiveBox});
 
   static const _key = 'is_first_time';
+  static const _supportLaunchCountKey = 'support_launch_count';
+  static const _supportNeverShowKey = 'support_never_show';
 
   Future<bool> getFirstTime() async {
     try {
@@ -34,6 +36,35 @@ class UserLocalDatasource {
       log('User preference storage cleared successfully');
     } catch (e, stack) {
       log('error clearing first time user storage: $e at $stack');
+    }
+  }
+
+  /// Increments the launch count and returns true if the support prompt
+  /// should be shown this session. Shows at launch 5, 15, 25, ...
+  Future<bool> checkAndIncrementForSupportPrompt() async {
+    try {
+      final neverShow =
+          hiveBox.get(_supportNeverShowKey, defaultValue: false) as bool? ??
+          false;
+      if (neverShow) return false;
+
+      final count =
+          (hiveBox.get(_supportLaunchCountKey, defaultValue: 0) as int? ?? 0) +
+          1;
+      await hiveBox.put(_supportLaunchCountKey, count);
+
+      return count >= 5 && (count - 5) % 10 == 0;
+    } catch (e, stack) {
+      log('error checking support prompt: $e at $stack');
+      return false;
+    }
+  }
+
+  Future<void> setSupportNeverShow(bool value) async {
+    try {
+      await hiveBox.put(_supportNeverShowKey, value);
+    } catch (e, stack) {
+      log('error setting support never show: $e at $stack');
     }
   }
 }

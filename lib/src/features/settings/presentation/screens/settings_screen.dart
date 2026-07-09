@@ -93,6 +93,18 @@ class SettingsScreen extends HookConsumerWidget {
                   ),
 
                   _buildSettingsItem(
+                    icon: Icons.favorite_rounded,
+                    title: 'Support the Creator',
+                    subtitle: 'Keep this app free — show some love',
+                    iconColor: Colors.red,
+                    onTap: () {
+                      kLaunchUrlExternalApplication(
+                        'https://selar.com/showlove/jer3miah',
+                      );
+                    },
+                  ),
+
+                  _buildSettingsItem(
                     icon: Icons.mail_outline,
                     title: 'Support',
                     subtitle: 'Get help and contact support',

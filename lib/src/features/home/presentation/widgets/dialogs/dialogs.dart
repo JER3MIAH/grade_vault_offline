@@ -7,3 +7,4 @@ export 'edit_comments_dialog.dart';
 export 'delete_class_dialog.dart';
 export 'backup_data_dialog.dart';
 export 'export_data_dialog.dart';
+export 'support_prompt_dialog.dart';
