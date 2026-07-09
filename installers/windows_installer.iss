@@ -2,7 +2,7 @@
 ; Generated on December 17, 2025
 
 #define MyAppName "GradeVault"
-#define MyAppVersion "1.0.2"
+#define MyAppVersion "1.1.1"
 #define MyAppPublisher "Jeremiah Owoade"
 #define MyAppURL "https://www.jer3miahcodes.com/"
 #define MyAppExeName "grade_vault_offline.exe"
